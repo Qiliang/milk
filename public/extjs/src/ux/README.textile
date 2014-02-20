@@ -1,0 +1,11 @@
+h1. Ext.ux.Exporter
+
+h2. About
+
+p. Exporter is a generic export class which takes any Ext.data.Store-based component (e.g. grids and similar) and exports the data in a specified format.
+
+p. Exporter generates data completely client-side using a Formatter class to generate the document contents(.xls, .csv etc).
+
+p. Some server-side code is then used to cleanly cause a file download from a hidden iframe. Currently the server-side code is written in jsp, but it should be able to be written in any client-side framework. The underlying idea is to post the data to the server using saveFile.jsp, where it is saved to a temp file. The iframe src is then used to download the file using download.jsp which sets the appropriate header on the response for a download and adds the contents of the temp file to the response output stream. This then triggers the standard download response in the browser. This has been tested and works in Firefox, Chrome, and IE (though not in really old versions).
+
+p. You can check this post for more info for now: http://www.sencha.com/forum/showthread.php?136598-Export-store-to-Excel

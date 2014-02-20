@@ -1,0 +1,89 @@
+/**
+ * Module dependencies.
+ */
+//var process=require('process');
+var express = require('express');
+var routes = require('./routes');
+var goods = require('./routes/goods');
+var category = require('./routes/category');
+var shops = require('./routes/shops');
+var proxies = require('./routes/proxies');
+var ins = require('./routes/ins');
+var auth = require('./routes/auth');
+var outs = require('./routes/outs');
+var stock = require('./routes/stock');
+var surplus = require('./routes/surplus');
+var users = require('./routes/users');
+var download = require('./routes/download');
+var http = require('http');
+var path = require('path');
+
+
+var app = express();
+
+// all environments
+app.set('port', process.env.PORT || 3000);
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
+app.use(express.favicon());
+app.use(express.logger('dev'));
+app.use(express.bodyParser());
+app.use(express.methodOverride());
+app.use(express.cookieParser('your secret here'));
+app.use(express.session());
+app.use(app.router);
+app.use(express.static(path.join(__dirname, 'public')));
+
+// development only
+if ('development' == app.get('env')) {
+    app.use(express.errorHandler());
+}
+
+app.get('/', routes.index);
+
+app.get('/goods', goods.all);
+app.post('/goods', goods.add);
+app.put('/goods', goods.update);
+app.delete('/goods', goods.delete);
+
+app.get('/shops', shops.all);
+app.post('/shops/:id', shops.add);
+app.put('/shops/:id', shops.update);
+app.delete('/shops/:id', shops.delete);
+
+app.get('/proxies', proxies.all);
+app.post('/proxies/:id', proxies.add);
+app.put('/proxies/:id', proxies.update);
+app.delete('/proxies/:id', proxies.delete);
+
+
+app.get('/ins', ins.all);
+app.post('/ins', ins.add);
+app.put('/ins/:id', ins.update);
+app.delete('/ins/:id', ins.delete);
+
+app.get('/condition', outs.can);
+app.get('/outs', outs.all);
+app.post('/outs', outs.add);
+app.put('/outs/:_id', outs.update);
+app.delete('/outs/:_id', outs.delete);
+app.get('/stock', stock.query);
+app.get('/surplus', surplus.query);
+app.post('/download', download.save);
+app.get('/download', download.do);
+app.get('/category', category.all);
+app.get('/users', users.all);
+app.post('/users', users.add);
+app.put('/users/:id', users.update);
+app.delete('/users/:id', users.delete);
+app.post('/auth', auth.check);
+
+process.stdout.on('error', function (err) {
+    if (err.code == "EPIPE") {
+        process.exit(0);
+    }
+});
+
+http.createServer(app).listen(app.get('port'), '0.0.0.0', function () {
+    console.log('Express server listening on port ' + app.get('port'));
+});

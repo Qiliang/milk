@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?><?mso-application progid="Excel.Sheet"?>
+<ss:Workbook xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet" xmlns:x="urn:schemas-microsoft-com:office:excel"
+             xmlns:o="urn:schemas-microsoft-com:office:office">
+    <o:DocumentProperties>
+        <o:Title>入库登记</o:Title>
+    </o:DocumentProperties>
+    <ss:ExcelWorkbook>
+        <ss:WindowHeight>9000</ss:WindowHeight>
+        <ss:WindowWidth>50000</ss:WindowWidth>
+        <ss:ProtectStructure>false</ss:ProtectStructure>
+        <ss:ProtectWindows>false</ss:ProtectWindows>
+    </ss:ExcelWorkbook>
+    <ss:Styles>
+        <ss:Style ss:ID="Default">
+            <ss:Alignment ss:Vertical="Top" ss:WrapText="1"/>
+            <ss:Font ss:FontName="arial" ss:Size="10"/>
+            <ss:Interior/>
+            <ss:NumberFormat/>
+            <ss:Protection/>
+            <ss:Borders>
+                <ss:Border ss:Position="Top" ss:Color="#e4e4e4" ss:Weight="1" ss:LineStyle="Continuous"/>
+                <ss:Border ss:Position="Bottom" ss:Color="#e4e4e4" ss:Weight="1" ss:LineStyle="Continuous"/>
+                <ss:Border ss:Position="Left" ss:Color="#e4e4e4" ss:Weight="1" ss:LineStyle="Continuous"/>
+                <ss:Border ss:Position="Right" ss:Color="#e4e4e4" ss:Weight="1" ss:LineStyle="Continuous"/>
+            </ss:Borders>
+        </ss:Style>
+        <ss:Style ss:ID="even">
+            <ss:Interior ss:Pattern="Solid" ss:Color="#CCFFFF"/>
+        </ss:Style>
+        <ss:Style ss:ID="odd">
+            <ss:Interior ss:Pattern="Solid" ss:Color="#CCCCFF"/>
+        </ss:Style>
+        <ss:Style ss:ID="evendate" ss:Parent="even">
+            <ss:NumberFormat ss:Format="[ENG][$-409]dd-mmm-yyyy;@"/>
+        </ss:Style>
+        <ss:Style ss:ID="evenint" ss:Parent="even">
+            <ss:NumberFormat ss:Format="0"/>
+        </ss:Style>
+        <ss:Style ss:ID="evenfloat" ss:Parent="even">
+            <ss:NumberFormat ss:Format="0.00"/>
+        </ss:Style>
+        <ss:Style ss:ID="odddate" ss:Parent="even">
+            <ss:NumberFormat ss:Format="[ENG][$-409]dd-mmm-yyyy;@"/>
+        </ss:Style>
+        <ss:Style ss:ID="oddint" ss:Parent="even">
+            <ss:NumberFormat ss:Format="0"/>
+        </ss:Style>
+        <ss:Style ss:ID="oddfloat" ss:Parent="even">
+            <ss:NumberFormat ss:Format="0.00"/>
+        </ss:Style>
+        <ss:Style ss:ID="title">
+            <ss:Borders/>
+            <ss:Font/>
+            <ss:NumberFormat ss:Format="@"/>
+            <ss:Alignment ss:WrapText="1" ss:Horizontal="Center" ss:Vertical="Center"/>
+        </ss:Style>
+        <ss:Style ss:ID="headercell">
+            <ss:Font ss:Bold="1" ss:Size="10"/>
+            <ss:Interior ss:Pattern="Solid" ss:Color="#A3C9F1"/>
+            <ss:Alignment ss:WrapText="1" ss:Horizontal="Center"/>
+        </ss:Style>
+    </ss:Styles>
+    <ss:Worksheet ss:Name="入库登记">
+        <ss:Names>
+            <ss:NamedRange ss:Name="Print_Titles" ss:RefersTo="='入库登记'!R1:R2"/>
+        </ss:Names>
+        <ss:Table>
+            <ss:Row ss:AutoFitHeight="1"></ss:Row>
+            <ss:Row ss:AutoFitHeight="1">
+                <ss:Cell ss:StyleID="headercell">
+                    <ss:Data ss:Type="String">货品编号</ss:Data>
+                    <ss:NamedCell ss:Name="Print_Titles"/>
+                </ss:Cell>
+                <ss:Cell ss:StyleID="headercell">
+                    <ss:Data ss:Type="String">货品名称</ss:Data>
+                    <ss:NamedCell ss:Name="Print_Titles"/>
+                </ss:Cell>
+                <ss:Cell ss:StyleID="headercell">
+                    <ss:Data ss:Type="String">规格</ss:Data>
+                    <ss:NamedCell ss:Name="Print_Titles"/>
+                </ss:Cell>
+                <ss:Cell ss:StyleID="headercell">
+                    <ss:Data ss:Type="String">单位</ss:Data>
+                    <ss:NamedCell ss:Name="Print_Titles"/>
+                </ss:Cell>
+                <ss:Cell ss:StyleID="headercell">
+                    <ss:Data ss:Type="String">分类</ss:Data>
+                    <ss:NamedCell ss:Name="Print_Titles"/>
+                </ss:Cell>
+                <ss:Cell ss:StyleID="headercell">
+                    <ss:Data ss:Type="String">单价</ss:Data>
+                    <ss:NamedCell ss:Name="Print_Titles"/>
+                </ss:Cell>
+                <ss:Cell ss:StyleID="headercell">
+                    <ss:Data ss:Type="String">总价</ss:Data>
+                    <ss:NamedCell ss:Name="Print_Titles"/>
+                </ss:Cell>
+                <ss:Cell ss:StyleID="headercell">
+                    <ss:Data ss:Type="String">数量</ss:Data>
+                    <ss:NamedCell ss:Name="Print_Titles"/>
+                </ss:Cell>
+                <ss:Cell ss:StyleID="headercell">
+                    <ss:Data ss:Type="String">入库日期</ss:Data>
+                    <ss:NamedCell ss:Name="Print_Titles"/>
+                </ss:Cell>
+                <ss:Cell ss:StyleID="headercell">
+                    <ss:Data ss:Type="String">备注</ss:Data>
+                    <ss:NamedCell ss:Name="Print_Titles"/>
+                </ss:Cell>
+            </ss:Row>
+            <ss:Row>
+                <ss:Cell ss:StyleID="even">
+                    <ss:Data ss:Type="String">1101001</ss:Data>
+                </ss:Cell>
+                <ss:Cell ss:StyleID="even">
+                    <ss:Data ss:Type="String">H 红茶</ss:Data>
+                </ss:Cell>
+                <ss:Cell ss:StyleID="even">
+                    <ss:Data ss:Type="String">600g*36包/箱</ss:Data>
+                </ss:Cell>
+                <ss:Cell ss:StyleID="even">
+                    <ss:Data ss:Type="String">包</ss:Data>
+                </ss:Cell>
+                <ss:Cell ss:StyleID="even">
+                    <ss:Data ss:Type="String">茶叶类</ss:Data>
+                </ss:Cell>
+                <ss:Cell ss:StyleID="even">
+                    <ss:Data ss:Type="Number">3</ss:Data>
+                </ss:Cell>
+                <ss:Cell ss:StyleID="even">
+                    <ss:Data ss:Type="Number">9.00</ss:Data>
+                </ss:Cell>
+                <ss:Cell ss:StyleID="even">
+                    <ss:Data ss:Type="Number">3</ss:Data>
+                </ss:Cell>
+                <ss:Cell ss:StyleID="even">
+                    <ss:Data ss:Type="DateTime">Thu Dec 26 2013 08:00:00 GMT+0800 (中国标准时间)</ss:Data>
+                </ss:Cell>
+                <ss:Cell ss:StyleID="even">
+                    <ss:Data ss:Type="String"></ss:Data>
+                </ss:Cell>
+            </ss:Row>
+            <ss:Row>
+                <ss:Cell ss:StyleID="odd">
+                    <ss:Data ss:Type="String">W1101005</ss:Data>
+                </ss:Cell>
+                <ss:Cell ss:StyleID="odd">
+                    <ss:Data ss:Type="String">绿茶</ss:Data>
+                </ss:Cell>
+                <ss:Cell ss:StyleID="odd">
+                    <ss:Data ss:Type="String">600g*36包/箱</ss:Data>
+                </ss:Cell>
+                <ss:Cell ss:StyleID="odd">
+                    <ss:Data ss:Type="String">"</ss:Data>
+                </ss:Cell>
+                <ss:Cell ss:StyleID="odd">
+                    <ss:Data ss:Type="String">茶叶类</ss:Data>
+                </ss:Cell>
+                <ss:Cell ss:StyleID="odd">
+                    <ss:Data ss:Type="Number">2</ss:Data>
+                </ss:Cell>
+                <ss:Cell ss:StyleID="odd">
+                    <ss:Data ss:Type="Number">12.00</ss:Data>
+                </ss:Cell>
+                <ss:Cell ss:StyleID="odd">
+                    <ss:Data ss:Type="Number">6</ss:Data>
+                </ss:Cell>
+                <ss:Cell ss:StyleID="odd">
+                    <ss:Data ss:Type="DateTime">Thu Dec 26 2013 08:00:00 GMT+0800 (中国标准时间)</ss:Data>
+                </ss:Cell>
+                <ss:Cell ss:StyleID="odd">
+                    <ss:Data ss:Type="String"></ss:Data>
+                </ss:Cell>
+            </ss:Row>
+        </ss:Table>
+        <x:WorksheetOptions>
+            <x:PageSetup>
+                <x:Layout x:CenterHorizontal="1" x:Orientation="Landscape"/>
+                <x:Footer x:Data="Page &amp;P of &amp;N" x:Margin="0.5"/>
+                <x:PageMargins x:Top="0.5" x:Right="0.5" x:Left="0.5" x:Bottom="0.8"/>
+            </x:PageSetup>
+            <x:FitToPage/>
+            <x:Print>
+                <x:PrintErrors>Blank</x:PrintErrors>
+                <x:FitWidth>1</x:FitWidth>
+                <x:FitHeight>32767</x:FitHeight>
+                <x:ValidPrinterInfo/>
+                <x:VerticalResolution>600</x:VerticalResolution>
+            </x:Print>
+            <x:Selected/>
+            <x:DoNotDisplayGridlines/>
+            <x:ProtectObjects>False</x:ProtectObjects>
+            <x:ProtectScenarios>False</x:ProtectScenarios>
+        </x:WorksheetOptions>
+    </ss:Worksheet>
+</ss:Workbook>
