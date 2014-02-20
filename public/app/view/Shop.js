@@ -9,6 +9,11 @@ Ext.define('invoicing.view.Shop', {
 
     _columns: [
         {
+            text: '学校编号',
+            flex: 1,
+            sortable: false,
+            dataIndex: 'seq'
+        },{
             text: '学校名称',
             flex: 1,
             sortable: false,

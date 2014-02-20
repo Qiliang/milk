@@ -32,7 +32,7 @@ exports.all = function (req, res) {
 };
 
 
-var insert_stmt = "insert into ins(comment,count,price,good_id,remainder,create_at,modifier) values($comment,$count,$price,$good_id,$remainder,$create_at,$modifier)"
+var insert_stmt = "insert into ins(comment,count,price,good_id,remainder,create_at,modifier,expiry) values($comment,$count,$price,$good_id,$remainder,$create_at,$modifier,$expiry)"
 exports.add = function (req, res) {
     if (_.isArray(req.body)) {
         var batch = _(req.body).map(function (item) {
@@ -84,7 +84,7 @@ exports.update = function (req, res) {
             });
 
     } else {
-        db.run(" update ins set comment=$comment,count=$count,price=$price,good_id=$good_id,remainder=$remainder,create_at=$create_at,modifier=$modifier where id=$id", db.args(req.body)).done(function (text) {
+        db.run(" update ins set expiry=$=expiry,comment=$comment,count=$count,price=$price,good_id=$good_id,remainder=$remainder,create_at=$create_at,modifier=$modifier where id=$id", db.args(req.body)).done(function (text) {
             res.send(text);
         }, function (err) {
             res.send(500, err);

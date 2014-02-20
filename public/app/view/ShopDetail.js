@@ -11,6 +11,11 @@ Ext.define('invoicing.view.ShopDetail', {
     defaultType: 'textfield',
     items: [
         {
+            fieldLabel: '学校编号',
+            name: 'seq',
+            allowBlank: false
+        },
+        {
             fieldLabel: '学校名称',
             name: 'name',
             allowBlank: false

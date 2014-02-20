@@ -11,6 +11,7 @@ Ext.define('invoicing.model.In', {
         {name: 'category', persist: false},
         'comment',
         {name: 'count', type: 'int'},
+        {name: 'expiry', type: 'int'},
         {name: 'remainder', type: 'int'},
         {name: 'price', type: 'float'},
         {name: 'total', type: 'float', persist: false, convert: function (value, record) {

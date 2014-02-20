@@ -78,6 +78,12 @@ Ext.define('invoicing.view.In', {
             }
         },
         {
+            text: '效期',
+            flex: 1,
+            sortable: false,
+            dataIndex: 'expiry'
+        },
+        {
             text: '备注',
             flex: 1,
             sortable: false,

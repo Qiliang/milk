@@ -23,6 +23,8 @@ Ext.define('invoicing.view.TreeMenu', {
             items.push({ text: "学校信息", leaf: true });
         if (window.capability('2-1'))
             items.push({ text: "送货人信息", leaf: true });
+        if (window.capability('2-1'))
+            items.push({ text: "送货人入账", leaf: true });
         if (window.capability('3-1'))
             items.push({ text: "库存", leaf: true });
         if (window.capability('4-1'))

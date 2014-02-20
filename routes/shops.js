@@ -7,7 +7,7 @@ exports.all = function (req, res) {
 };
 
 exports.add = function (req, res) {
-    db.run(" insert into shops(id,name,address) values($id,$name,$address)", db.args(req.body)).done(function (text) {
+    db.run(" insert into shops(id,name,address,seq) values($id,$name,$address,$seq)", db.args(req.body)).done(function (text) {
         res.send(text);
     }, function (err) {
         res.send(500, err);
