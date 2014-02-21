@@ -185,7 +185,7 @@ Ext.define('invoicing.view.In', {
     },
 
     onAddClick: function () {
-        Ext.create('Ext.window.Window', {title: '入库', modal: true, items: [
+        Ext.create('invoicing.view.Window', {title: '入库', items: [
             {xtype: 'inpanel', width: 750, height: 500, maximizable: true, source: this.getStore()}
         ]}).show();
     },

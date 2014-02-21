@@ -6,6 +6,7 @@ Ext.define('invoicing.view.Proxy', {
         stripeRows: true,
         enableTextSelection: true
     },
+
     _columns: [
         {
             text: '送货人名称',
@@ -27,6 +28,12 @@ Ext.define('invoicing.view.Proxy', {
                 minValue: 1,
                 maxValue: 10000000
             }
+        },
+        {
+            text: '已用金额',
+            flex: 1,
+            sortable: false,
+            dataIndex: 'remainder'
         }
     ],
 
@@ -38,6 +45,11 @@ Ext.define('invoicing.view.Proxy', {
                     text: '新增送货人',
                     scope: this,
                     handler: this.onAddClick
+                },
+                {
+                    text: '刷新',
+                    scope: this,
+                    handler: this.onRefresh
                 }
             ];
             this.columns.push({
@@ -55,9 +67,11 @@ Ext.define('invoicing.view.Proxy', {
                 ]
             });
         }
-
-
         this.callParent();
+    },
+
+    onRefresh: function () {
+        this.getStore().load();
     },
 
     onAddClick: function () {

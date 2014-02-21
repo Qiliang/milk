@@ -65,7 +65,7 @@ Ext.define('invoicing.view.OutPanel', {
                     typeAhead: true,
                     triggerAction: 'all',
                     displayField: 'name',
-                    valueField: 'name',
+                    valueField: 'id',
                     forceSelection: true,
                     store: Ext.create('invoicing.store.Proxies')
                 },

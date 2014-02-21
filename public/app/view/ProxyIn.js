@@ -28,7 +28,9 @@ Ext.define('invoicing.view.ProxyIn', {
         {
             text: '入账日期',
             flex: 1,
+            xtype: 'datecolumn',
             sortable: false,
+            format: 'Y-m-d',
             dataIndex: 'create_at'
         },
         {
@@ -38,17 +40,61 @@ Ext.define('invoicing.view.ProxyIn', {
             dataIndex: 'money'
         }
     ],
-
+    _tbar: [
+        {
+            xtype: 'datefield',
+            anchor: '100%',
+            fieldLabel: '开始时间',
+            name: 'from_date',
+            flex: 1,
+            format: 'Y-m-d'
+        },
+        {
+            xtype: 'datefield',
+            anchor: '100%',
+            fieldLabel: '结束时间',
+            name: 'to_date',
+            flex: 1,
+            format: 'Y-m-d'
+        },
+        {
+            xtype: 'combo',
+            name: 'proxy',
+            typeAhead: true,
+            triggerAction: 'all',
+            displayField: 'name',
+            valueField: 'id',
+            store: Ext.create('invoicing.store.Proxies'),
+            flex: 1,
+            fieldLabel: '送货人'
+        },
+        {
+            xtype: 'combo',
+            name: 'shop',
+            typeAhead: true,
+            triggerAction: 'all',
+            displayField: 'name',
+            valueField: 'id',
+            store: Ext.create('invoicing.store.Shop'),
+            flex: 1,
+            fieldLabel: '学校'
+        }
+    ],
     initComponent: function () {
         this.columns = Ext.clone(this._columns);
+        this.tbar = Ext.clone(this._tbar);
+        this.tbar.push({
+            text: '查询',
+            scope: this,
+            handler: this.onQuery
+        });
         if (window.capability('2-2')) {
-            this.tbar = [
-                {
-                    text: '入账',
-                    scope: this,
-                    handler: this.onAddClick
-                }
-            ];
+
+            this.tbar.splice(0, 0, {
+                text: '入账',
+                scope: this,
+                handler: this.onAddClick
+            });
             this.columns.push({
                 xtype: 'actioncolumn',
                 flex: 1,
@@ -87,5 +133,23 @@ Ext.define('invoicing.view.ProxyIn', {
                 }
             }
         });
+    },
+
+    onQuery: function () {
+        var proxy_id = this.down('toolbar').down('combo[name=proxy]').value;
+        var from_date = this.down('toolbar').down('datefield[name=from_date]').value;
+        var to_date = this.down('toolbar').down('datefield[name=to_date]').value;
+        var shop_id = this.down('toolbar').down('combo[name=shop]').value;
+        if (to_date) {
+            to_date.setHours(23);
+            to_date.setMinutes(59);
+        }
+        var proxy = this.getStore().getProxy();
+        proxy.setExtraParam('proxy_id', proxy_id);
+        proxy.setExtraParam('shop_id', shop_id);
+        proxy.setExtraParam('from_date', from_date);
+        proxy.setExtraParam('to_date', to_date);
+        this.getStore().load();
+
     }
 });

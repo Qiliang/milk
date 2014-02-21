@@ -12,7 +12,7 @@ Ext.define('invoicing.view.ShopDetail', {
     items: [
         {
             fieldLabel: '学校编号',
-            name: 'seq',
+            name: 'id',
             allowBlank: false
         },
         {

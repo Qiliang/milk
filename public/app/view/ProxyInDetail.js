@@ -12,25 +12,25 @@ Ext.define('invoicing.view.ProxyInDetail', {
     items: [
         {
             fieldLabel: '送货人',
-            name: 'proxy_name',
+            name: 'proxy_id',
             xtype: 'combo',
             allowBlank: false,
             typeAhead: true,
             triggerAction: 'all',
             displayField: 'name',
-            valueField: 'name',
+            valueField: 'id',
             forceSelection: true,
             store: Ext.create('invoicing.store.Proxies')
         },
         {
             fieldLabel: '学校名称',
-            name: 'shop_seq',
+            name: 'shop_id',
             xtype: 'combo',
             allowBlank: false,
             typeAhead: true,
             triggerAction: 'all',
             displayField: 'name',
-            valueField: 'seq',
+            valueField: 'id',
             forceSelection: true,
             store: Ext.create('invoicing.store.Shop')
         },
@@ -78,7 +78,7 @@ Ext.define('invoicing.view.ProxyInDetail', {
             formBind: true,
             disabled: true,
             handler: function () {
-                var me = this.up('proxydetail');
+                var me = this.up('proxyindetail');
                 var form = this.up('form').getForm();
                 if (form.isValid()) {
                     var values = form.getValues();

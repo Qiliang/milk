@@ -38,7 +38,7 @@ Ext.define('invoicing.view.Out', {
             text: '送货人',
             flex: 1,
             sortable: true,
-            dataIndex: 'proxy'
+            dataIndex: 'proxy_name'
         },
         {
             text: '规格',
@@ -121,7 +121,7 @@ Ext.define('invoicing.view.Out', {
             typeAhead: true,
             triggerAction: 'all',
             displayField: 'name',
-            valueField: 'name',
+            valueField: 'id',
             store: Ext.create('invoicing.store.Proxies'),
             fieldLabel: '送货人'
         }
@@ -178,9 +178,25 @@ Ext.define('invoicing.view.Out', {
 
     onAddClick: function () {
         var me = this;
-        var win = Ext.create('Ext.window.Window', {title: '出库', modal: true, items: [
+//        var win = Ext.create('Ext.window.Window', {title: '出库', layout: 'fit', tools: [
+//            {type: 'maximize', itemId: 'maximize', handler: function () {
+//                win.down('#maximize').hide();
+//                win.down('#restore').show();
+//                win.maximize(true);
+//            }},
+//            {type: 'restore', itemId: 'restore', hidden: true, handler: function () {
+//                win.down('#maximize').show();
+//                win.down('#restore').hide();
+//                win.restore(true);
+//            }}
+//        ], modal: true, items: [
+//            {xtype: 'outpanel', layout: 'fit', width: 950, height: 500, resizable: false, source: this.getStore()}
+//        ]});
+        var win = Ext.create('invoicing.view.Window', {title: '出库', items: [
             {xtype: 'outpanel', layout: 'fit', width: 950, height: 500, resizable: false, source: this.getStore()}
         ]});
+
+
         win.show();
 
 

@@ -8,6 +8,7 @@ var goods = require('./routes/goods');
 var category = require('./routes/category');
 var shops = require('./routes/shops');
 var proxies = require('./routes/proxies');
+var proxyins = require('./routes/proxyins');
 var ins = require('./routes/ins');
 var auth = require('./routes/auth');
 var outs = require('./routes/outs');
@@ -47,7 +48,7 @@ app.put('/goods', goods.update);
 app.delete('/goods', goods.delete);
 
 app.get('/shops', shops.all);
-app.post('/shops/:id', shops.add);
+app.post('/shops', shops.add);
 app.put('/shops/:id', shops.update);
 app.delete('/shops/:id', shops.delete);
 
@@ -56,6 +57,10 @@ app.post('/proxies/:id', proxies.add);
 app.put('/proxies/:id', proxies.update);
 app.delete('/proxies/:id', proxies.delete);
 
+app.get('/proxyins', proxyins.all);
+app.post('/proxyins', proxyins.add);
+app.put('/proxyins/:id', proxyins.update);
+app.delete('/proxyins/:id', proxyins.delete);
 
 app.get('/ins', ins.all);
 app.post('/ins', ins.add);

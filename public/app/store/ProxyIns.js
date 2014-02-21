@@ -3,8 +3,14 @@ Ext.define('invoicing.store.ProxyIns', {
     autoSync: true,
     autoLoad: true,
     model: 'invoicing.model.ProxyIn',
+    sorters: [
+        {
+            property: 'create_at',
+            direction: 'DESC'
+        }
+    ],
     proxy: {
         type: 'rest',
-        url: '/proxies'
+        url: '/proxyins'
     }
 });

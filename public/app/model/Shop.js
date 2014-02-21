@@ -3,9 +3,10 @@ Ext.define('invoicing.model.Shop', {
     fields: [
         'id',
         'name',
-        'seq',
-        'address'
+        'address',
+        'clientId'
+
     ],
-    idgen: 'sequential',
-    idProperty: 'id'
+    //clientIdProperty: 'create_at',
+    idProperty: 'clientId'
 });

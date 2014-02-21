@@ -3,7 +3,8 @@ Ext.define('invoicing.model.Proxy', {
     fields: [
         'id',
         'name',
-        'credit'
+        'credit',
+        {name: 'remainder', type: 'float', persist: false}
     ],
     idgen: 'sequential',
     idProperty: 'id'

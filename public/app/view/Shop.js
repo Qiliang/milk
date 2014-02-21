@@ -12,7 +12,7 @@ Ext.define('invoicing.view.Shop', {
             text: '学校编号',
             flex: 1,
             sortable: false,
-            dataIndex: 'seq'
+            dataIndex: 'id'
         },{
             text: '学校名称',
             flex: 1,
@@ -42,7 +42,7 @@ Ext.define('invoicing.view.Shop', {
                 items: [
                     {
                         icon: '/images/icons/delete.gif',
-                        tooltip: 'Delete Plant',
+                        tooltip: '删除',
                         scope: this,
                         handler: this.onRemoveClick
                     }
