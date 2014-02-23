@@ -23,6 +23,8 @@ Ext.define('invoicing.controller.TreeMenu', {
                 cmp = this.getPanel(tabpanel, '送货人信息', 'proxy');
             } else if (item.textContent == '送货人入账') {
                 cmp = this.getPanel(tabpanel, '送货人入账', 'proxyin');
+            } else if (item.textContent == '送货人报表') {
+                cmp = this.getPanel(tabpanel, '送货人报表', 'proxyreport');
             } else if (item.textContent == '入库登记') {
                 cmp = this.getPanel(tabpanel, '入库登记', 'in');
             } else if (item.textContent == '出库登记') {

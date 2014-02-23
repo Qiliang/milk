@@ -113,6 +113,7 @@ Ext.define('invoicing.view.ProxyIn', {
 
 
         this.callParent();
+        this.getStore().load();
     },
 
     onAddClick: function () {

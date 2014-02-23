@@ -13,7 +13,8 @@ Ext.define('invoicing.view.Shop', {
             flex: 1,
             sortable: false,
             dataIndex: 'id'
-        },{
+        },
+        {
             text: '学校名称',
             flex: 1,
             sortable: false,
@@ -52,6 +53,7 @@ Ext.define('invoicing.view.Shop', {
 
 
         this.callParent();
+        this.getStore().load();
     },
 
     onAddClick: function () {

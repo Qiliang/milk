@@ -79,7 +79,7 @@ Ext.define('invoicing.view.Users', {
         });
 
         this.callParent();
-
+        this.getStore().load();
 
     },
 

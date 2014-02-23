@@ -100,8 +100,8 @@ Ext.define('invoicing.view.Goods', {
 
         }
 
-
         this.callParent();
+        this.getStore().load();
     },
     onApply: function (grid, rowIndex) {
         var id = this.getStore().getAt(rowIndex).get('id');

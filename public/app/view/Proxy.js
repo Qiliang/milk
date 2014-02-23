@@ -68,6 +68,7 @@ Ext.define('invoicing.view.Proxy', {
             });
         }
         this.callParent();
+        this.getStore().load();
     },
 
     onRefresh: function () {

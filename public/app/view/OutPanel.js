@@ -89,6 +89,13 @@ Ext.define('invoicing.view.OutPanel', {
                     fieldLabel: '出库日期',
                     name: 'create_at',
                     format: 'Y-m-d'
+                },
+                {
+                    xtype: 'checkbox',
+                    allowBlank: false,
+                    anchor: '100%',
+                    fieldLabel: '调拨',
+                    name: 'allocation'
                 }
             ],
             fbar: [

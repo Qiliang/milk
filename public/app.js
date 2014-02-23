@@ -32,8 +32,8 @@ Ext.application({
         'Ext.ux.exporter.Exporter'
     ],
     controllers: ['TreeMenu', 'Goods', 'In', 'Out', 'Shop'],
-    views: ['TreeMenu', 'Stock', 'Login', 'Register','Proxy','ProxyDetail','ProxyIn','ProxyInDetail'],
-    stores: ['Stock', 'Surplus', 'Category','Proxies','ProxyIns'],
+    views: ['TreeMenu', 'Stock', 'Login', 'Register', 'Proxy', 'ProxyDetail', 'ProxyIn', 'ProxyInDetail', 'ProxyReport'],
+    stores: ['Stock', 'Surplus', 'Category', 'Proxies', 'ProxyIns','ProxyReport'],
     models: ['Good'],
 
     launch: function () {
