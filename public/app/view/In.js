@@ -116,10 +116,10 @@ Ext.define('invoicing.view.In', {
         this.columns = Ext.clone(this._columns);
         this.tbar = Ext.clone(this._tbar);
         if (window.capability('4-2')) {
-            this.cellEditing = new Ext.grid.plugin.CellEditing({
-                clicksToEdit: 1
-            });
-            this.plugins = [this.cellEditing];
+//            this.cellEditing = new Ext.grid.plugin.CellEditing({
+//                clicksToEdit: 1
+//            });
+//            this.plugins = [this.cellEditing];
             this.tbar.splice(0, 0, {
                 text: '货品入库',
                 scope: this,
@@ -173,7 +173,7 @@ Ext.define('invoicing.view.In', {
 
     onAddClick: function () {
         Ext.create('invoicing.view.Window', {title: '入库', items: [
-            {xtype: 'inpanel', width: 750, height: 500, maximizable: true, source: this.getStore()}
+            {xtype: 'inpanel'}
         ]}).show();
     },
     onRemoveClick: function (grid, rowIndex) {

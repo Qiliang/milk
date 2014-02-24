@@ -26,14 +26,13 @@ Ext.define('invoicing.view.InPanel', {
                     priceField.setValue(records[0].get('price'));
                 }
             }
-
-
         },
 
         {
             fieldLabel: '数量',
             name: 'count',
             value: 1,
+            allowBlank: false,
             minValue: 1,
             maxValue: 100000,
             xtype: 'numberfield'
@@ -45,6 +44,14 @@ Ext.define('invoicing.view.InPanel', {
             name: 'price',
             allowBlank: false,
             readOnly: true,
+            xtype: 'numberfield'
+
+        },
+        {
+            fieldLabel: '效期',
+            name: 'expiry',
+            value: 90,
+            allowBlank: false,
             xtype: 'numberfield'
 
         },
@@ -74,92 +81,9 @@ Ext.define('invoicing.view.InPanel', {
         }
     ],
 
-
     initComponent: function () {
-//        this.store = Ext.create('Ext.data.Store', {
-//            model: 'invoicing.model.Good',
-//            autoLoad: true,
-//            proxy: {
-//                type: 'rest',
-//                url: '/goods'
-//            }
-//        });
-//        this.cellEditing = new Ext.grid.plugin.CellEditing({
-//            clicksToEdit: 1
-//        });
-
-//        tbar: [
-//            {
-//                xtype: 'checkbox',
-//                anchor: '100%',
-//                fieldLabel: '退货',
-//                name: 'reject',
-//                listeners: {
-//                    change: function (cmp, rec, index) {
-//                        if (cmp.value)
-//                            cmp.nextSibling('combo').enable();
-//                        else
-//                            cmp.nextSibling('combo').disable();
-//                    }
-//                }
-//            },
-//            {
-//                fieldLabel: '学校名称',
-//                name: 'shop_name',
-//                xtype: 'combo',
-//                disabled: true,
-//                typeAhead: true,
-//                triggerAction: 'all',
-//                displayField: 'name',
-//                valueField: 'name',
-//                forceSelection: true,
-//                store: Ext.create('invoicing.store.Shop')
-//            },
-//            {
-//                xtype: 'datefield',
-//                allowBlank: false,
-//                anchor: '100%',
-//                fieldLabel: '入库时间',
-//                name: 'create_at',
-//                format: 'Y-m-d'
-//            }
-//        ],
-//        fbar
-//            :
-//            [
-//                {
-//                    text: '保存',
-//                    scope: this,
-//                    handler: this.onSave
-//                }
-//            ]
-//    });
-
         this.callParent();
-    },
-
-    onSave: function () {
-        var me = this;
-        var create_at = this.down('toolbar').down('datefield[name=create_at]').value;
-        var reject = this.down('toolbar').down('checkbox[name=reject]').value;
-        var shop_name = this.down('toolbar').down('combo[name=shop_name]').value;
-        var recs = [];
-        var comment = '';
-        me.getStore().each(function (rec) {
-                if (!rec.get('count'))return;
-                if (reject) comment = '退货:' + shop_name;
-                recs.push({
-                    'good_id': rec.get('id'),
-                    'count': rec.get('count'),
-                    'remainder': rec.get('remainder'),
-                    'price': rec.get('price'),
-                    'comment': comment,
-                    'create_at': create_at
-                })
-            }
-        )
-        ;
-        me.source.add(recs);
-        me.up('window').close();
     }
+
+
 })

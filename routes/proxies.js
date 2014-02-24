@@ -4,23 +4,46 @@ var Q = require('Q');
 
 exports.all = function (req, res) {
 
-    Q.all([db.all('select * from outs'), db.all('select * from ins')]).spread(function (outs, ins) {
-        var stat = stat_price(outs, ins);
-        db.all('select * from proxies').done(function (rows) {
-            _(rows).each(function (row) {
-                if (_.isUndefined(stat[row.id])) {
-                    row.remainder = 0;
-                } else {
-                    row.remainder = stat[row.id];
-                }
 
+    Q.all([db.all('select * from proxies'), db.all('select sum(money) total,proxy_id from proxyins group by proxy_id'), db.all('select sum(count*price) total,proxy proxy_id from outs_view group by proxy')])
+        .spread(function (rows, proxyins, outs, goods) {
+            _(rows).each(function (proxy) {
+                proxy.remainder = 0;
+                proxy.remainder += getByProxy(proxyins, outs, proxy.id);
             });
             res.send(rows);
         });
-    });
+
+//    Q.all([db.all('select * from outs'), db.all('select * from ins')]).spread(function (outs, ins) {
+//        var stat = stat_price(outs, ins);
+//        db.all('select * from proxies').done(function (rows) {
+//            _(rows).each(function (row) {
+//                if (_.isUndefined(stat[row.id])) {
+//                    row.remainder = 0;
+//                } else {
+//                    row.remainder = stat[row.id];
+//                }
+//
+//            });
+//            res.send(rows);
+//        });
+//    });
 
 
 };
+
+function getByProxy(proxyins, outs, proxy_id) {
+    var item_in = _(proxyins).find(function (item) {
+        return item.proxy_id === proxy_id;
+    });
+    if (!item_in)item_in = {total: 0}
+    var item_out = _(outs).find(function (item) {
+        return item.proxy_id === proxy_id;
+    });
+    if (!item_out)item_out = {total: 0}
+
+    return item_out.total - item_in.total;
+}
 
 exports.add = function (req, res) {
     delete req.body.id;

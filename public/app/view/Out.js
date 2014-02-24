@@ -148,7 +148,7 @@ Ext.define('invoicing.view.Out', {
                 items: [
                     {
                         icon: '/images/icons/delete.gif',
-                        tooltip: 'Delete Plant',
+                        tooltip: '删除',
                         scope: this,
                         handler: this.onRemoveClick
                     }
@@ -178,27 +178,11 @@ Ext.define('invoicing.view.Out', {
 
     onAddClick: function () {
         var me = this;
-//        var win = Ext.create('Ext.window.Window', {title: '出库', layout: 'fit', tools: [
-//            {type: 'maximize', itemId: 'maximize', handler: function () {
-//                win.down('#maximize').hide();
-//                win.down('#restore').show();
-//                win.maximize(true);
-//            }},
-//            {type: 'restore', itemId: 'restore', hidden: true, handler: function () {
-//                win.down('#maximize').show();
-//                win.down('#restore').hide();
-//                win.restore(true);
-//            }}
-//        ], modal: true, items: [
-//            {xtype: 'outpanel', layout: 'fit', width: 950, height: 500, resizable: false, source: this.getStore()}
-//        ]});
         var win = Ext.create('invoicing.view.Window', {title: '出库', items: [
-            {xtype: 'outpanel', layout: 'fit', width: 950, height: 500, resizable: false, source: this.getStore()}
-        ]});
-
-
+            {xtype: 'outpanel'}
+        ]
+        });
         win.show();
-
 
     },
     onRemoveClick: function (grid, rowIndex) {
@@ -265,4 +249,5 @@ Ext.define('invoicing.view.Out', {
     }
 
 
-});
+})
+;
