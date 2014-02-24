@@ -17,6 +17,7 @@ var surplus = require('./routes/surplus');
 var proxyreport = require('./routes/proxyreport');
 var users = require('./routes/users');
 var download = require('./routes/download');
+var bootstrap = require('./routes/bootstrap');
 var http = require('http');
 var path = require('path');
 
@@ -35,13 +36,17 @@ app.use(express.cookieParser('your secret here'));
 app.use(express.session());
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
-
+app.set('public', path.join(__dirname, 'public'));
 // development only
 if ('development' == app.get('env')) {
     app.use(express.errorHandler());
 }
 
 app.get('/', routes.index);
+app.get('/bootstrap', bootstrap.all);
+app.get('/bootstrap/views', bootstrap.views);
+app.get('/bootstrap/models', bootstrap.models);
+app.get('/bootstrap/stores', bootstrap.stores);
 
 app.get('/goods', goods.all);
 app.post('/goods', goods.add);

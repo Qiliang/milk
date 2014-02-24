@@ -28,13 +28,12 @@ window.capability = function (id) {
 Ext.application({
     name: 'invoicing',
     appFolder: 'app',
-    requires: [
-        'Ext.ux.exporter.Exporter'
-    ],
-    controllers: ['TreeMenu', 'Goods', 'In', 'Out', 'Shop'],
-    views: ['TreeMenu', 'Stock', 'Login', 'Register', 'Proxy', 'ProxyDetail', 'ProxyIn', 'ProxyInDetail', 'ProxyReport'],
-    stores: ['Stock', 'Surplus', 'Category', 'Proxies', 'ProxyIns','ProxyReport'],
-    models: ['Good'],
+    requires: ['Ext.ux.exporter.Exporter'],
+    views: window.ext_views,
+    models: window.ext_models,
+    stores: window.ext_stores,
+    controllers: ['Main'],
+
 
     launch: function () {
         Ext.Ajax.addListener('beforerequest', function (conn, options, eOpts) {
@@ -48,9 +47,7 @@ Ext.application({
             }
         });
 
-
         Ext.onReady(function () {
-
             if (!Ext.util.Cookies.get('name')) {
                 var login = Ext.create('Ext.window.Window', {title: '登录', closable: false, modal: true, items: [
                     {xtype: 'login'}
@@ -58,6 +55,7 @@ Ext.application({
                 login.on('close', function () {
                     Ext.create('invoicing.view.Viewport');
                 });
+
                 login.show();
             } else {
                 Ext.create('invoicing.view.Viewport');
@@ -65,4 +63,5 @@ Ext.application({
 
         });
     }
-});
+})
+;

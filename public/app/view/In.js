@@ -1,7 +1,7 @@
 Ext.define('invoicing.view.In', {
     extend: 'Ext.grid.Panel',
     alias: 'widget.in',
-    store: 'In',
+    store: Ext.create('invoicing.store.In'),
     viewConfig: {
         stripeRows: true,
         enableTextSelection: true
@@ -109,17 +109,8 @@ Ext.define('invoicing.view.In', {
             fieldLabel: '结束时间',
             name: 'to_date',
             format: 'Y-m-d'
-        },
-        {
-            xtype: 'combo',
-            name: 'category',
-            typeAhead: true,
-            triggerAction: 'all',
-            displayField: '_id',
-            valueField: '_id',
-            store: Ext.create('invoicing.store.Category'),
-            fieldLabel: '分类'
         }
+
     ],
     initComponent: function () {
         this.columns = Ext.clone(this._columns);
@@ -173,11 +164,7 @@ Ext.define('invoicing.view.In', {
                 handler: this.onDelete
             });
         }
-//        this.bbar = Ext.create('Ext.PagingToolbar', {
-//            store: this.getStore(),
-//            beforePageText: '第',
-//            afterPageText: '页 共{0}页'
-//        });
+
         this.callParent();
         this.on('edit', function (editor, e) {
             e.record.set('total', 0);
@@ -222,13 +209,6 @@ Ext.define('invoicing.view.In', {
 
     onDelete: function () {
         var me = this;
-//        var mask = new Ext.LoadMask(this, {msg: "正在删除，请稍等..."});
-//        me.getStore().addListener('bulkremove', function (store, records, indexes, isMove, eOpts) {
-//            mask.hide();
-//            console.log('hide')
-//        }, this);
-
-
         Ext.Msg.show({
             title: '批量删除',
             msg: '确认批量删除?',
@@ -236,20 +216,13 @@ Ext.define('invoicing.view.In', {
             icon: Ext.Msg.QUESTION,
             fn: function (buttonId) {
                 if (buttonId === 'yes') {
-
-//                    me.getStore().suspendAutoSync();
                     me.getStore().removeAll();
-//                    me.getStore().sync({batch: {}, callback: function (batch, options) {
-//                        console.log(batch)
-//                    }});
-//                    me.getStore().resumeAutoSync();
                 }
             }
         });
 
     },
     onQuery: function () {
-        var category = this.down('toolbar').down('combo[name=category]').value;
         var from_date = this.down('toolbar').down('datefield[name=from_date]').value;
         var to_date = this.down('toolbar').down('datefield[name=to_date]').value;
         if (to_date) {
@@ -258,7 +231,6 @@ Ext.define('invoicing.view.In', {
         }
 
         var proxy = this.getStore().getProxy();
-        proxy.setExtraParam('category', category);
         proxy.setExtraParam('from_date', from_date);
         proxy.setExtraParam('to_date', to_date);
         this.getStore().load();

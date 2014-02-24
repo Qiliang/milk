@@ -1,7 +1,7 @@
 Ext.define('invoicing.view.Goods', {
     extend: 'Ext.grid.Panel',
     alias: 'widget.goods',
-    store: 'Goods',
+    store: Ext.create('invoicing.store.Goods'),
 
     _columns: [
         {
@@ -63,7 +63,8 @@ Ext.define('invoicing.view.Goods', {
                     text: '添加货品',
                     scope: this,
                     handler: this.onAddClick
-                },{
+                },
+                {
                     text: '应用默认单价',
                     scope: this,
                     handler: this.onApplyAll

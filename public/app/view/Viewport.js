@@ -1,12 +1,12 @@
 Ext.define('invoicing.view.Viewport', {
     extend: 'Ext.container.Viewport',
-    xtype:'top',
+    xtype: 'top',
     layout: 'border',
     bodyBorder: false,
     defaults: {
         collapsible: true,
         split: true,
-        bodyPadding: 15
+        bodyPadding: 0
     },
     items: [
         {
@@ -20,17 +20,11 @@ Ext.define('invoicing.view.Viewport', {
             maxWidth: 350
         },
         {
-            collapsible: false,
+            xtype: 'panel',
             region: 'center',
-            margins: '5 0 0 0',
-            xtype: 'tabpanel',
-            activeTab: 0, // index or id
-            items: [
-                {
-                    title: '主页',
-                    html: '进销存管理系统'
-                }
-            ]
+            header: false,
+            layout: 'fit',
+            id: 'contentPanel'
         }
     ],
 

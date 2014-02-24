@@ -1,7 +1,7 @@
 Ext.define('invoicing.view.ProxyIn', {
     extend: 'Ext.grid.Panel',
     alias: 'widget.proxyin',
-    store: 'ProxyIns',
+    store: Ext.create('invoicing.store.ProxyIns'),
     viewConfig: {
         stripeRows: true,
         enableTextSelection: true

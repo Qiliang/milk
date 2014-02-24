@@ -1,7 +1,7 @@
 Ext.define('invoicing.view.Stock', {
     extend: 'Ext.grid.Panel',
     alias: 'widget.stock',
-    store: 'Stock',
+    store: Ext.create('invoicing.store.Stock'),
 
     columns: [
         {
@@ -84,16 +84,6 @@ Ext.define('invoicing.view.Stock', {
                 format: 'Y-m-d'
             },
             {
-                xtype: 'combo',
-                name: 'category',
-                typeAhead: true,
-                triggerAction: 'all',
-                displayField: '_id',
-                valueField: '_id',
-                store: Ext.create('invoicing.store.Category'),
-                fieldLabel: '分类'
-            },
-            {
                 text: '查询',
                 scope: this,
                 handler: this.onQuery
@@ -124,7 +114,6 @@ Ext.define('invoicing.view.Stock', {
         });
     },
     onQuery: function () {
-        var category = this.down('toolbar').down('combo[name=category]').value;
         var from_date = this.down('toolbar').down('datefield[name=from_date]').value;
         var to_date = this.down('toolbar').down('datefield[name=to_date]').value;
         if (!from_date || !to_date) {
@@ -142,7 +131,6 @@ Ext.define('invoicing.view.Stock', {
             url: 'stock',
             scope: this,
             params: {
-                category: category,
                 from_date: from_date,
                 to_date: to_date},
             success: function (response, opts) {

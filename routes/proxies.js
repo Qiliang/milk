@@ -44,6 +44,16 @@ exports.delete = function (req, res) {
 
 };
 
+exports.credit = function (req, res) {
+    var good_id = req.query.good_id,
+        proxy_id = req.query.proxy_id,
+        count = req.query.count;
+
+
+    res.end();
+};
+
+
 function stat_price(outs, ins) {
     var stat = {};
     _(outs).each(function (out) {

@@ -33,7 +33,7 @@ Ext.define('invoicing.view.GoodDetail', {
         },
         {
             fieldLabel: '默认单价',
-            xtype:'numberfield',
+            xtype: 'numberfield',
             dataIndex: 'price',
             allowBlank: true,
             flex: 1

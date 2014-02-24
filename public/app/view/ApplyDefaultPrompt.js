@@ -44,7 +44,7 @@ Ext.define('invoicing.view.ApplyDefaultPrompt', {
                     Ext.Ajax.request({
                         url: '/ins/' + me.good_id,
                         method: 'PUT',
-                        params:  form.getValues(),
+                        params: form.getValues(),
                         success: function (response) {
                             var text = response.responseText;
                             me.up('window').close();

@@ -14,10 +14,11 @@ Ext.define('invoicing.view.ProxyDetail', {
             fieldLabel: '送货人名称',
             name: 'name',
             allowBlank: false
-        },{
+        },
+        {
             fieldLabel: '信用金额',
             xtype: 'numberfield',
-            name:'credit',
+            name: 'credit',
             allowBlank: false,
             minValue: 1,
             maxValue: 10000000

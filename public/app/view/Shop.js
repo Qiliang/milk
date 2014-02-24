@@ -1,7 +1,7 @@
 Ext.define('invoicing.view.Shop', {
     extend: 'Ext.grid.Panel',
     alias: 'widget.shop',
-    store: 'Shop',
+    store: Ext.create('invoicing.store.Shop'),
     viewConfig: {
         stripeRows: true,
         enableTextSelection: true

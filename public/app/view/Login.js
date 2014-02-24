@@ -14,14 +14,14 @@ Ext.define('invoicing.view.Login', {
         {
             fieldLabel: '用户名',
             name: 'name',
-            value:'admin',
+            value: 'admin',
             allowBlank: false
         },
         {
             fieldLabel: '密码',
             inputType: 'password',
             name: 'password',
-            value:'admin',
+            value: 'admin',
             allowBlank: false
         }
 

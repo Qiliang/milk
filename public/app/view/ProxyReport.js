@@ -1,7 +1,7 @@
 Ext.define('invoicing.view.ProxyReport', {
     extend: 'Ext.grid.Panel',
     alias: 'widget.proxyreport',
-    store: 'ProxyReport',
+    store: Ext.create('invoicing.store.ProxyReport'),
     viewConfig: {
         stripeRows: true,
         enableTextSelection: true
@@ -42,7 +42,7 @@ Ext.define('invoicing.view.ProxyReport', {
             dataIndex: 'amount'
         },
         {
-            text: '金额',
+            text: '回款金额',
             flex: 1,
             sortable: false,
             dataIndex: 'in_amount'
