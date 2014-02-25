@@ -12,6 +12,7 @@ Ext.define('invoicing.model.Out', {
         {name: 'unit', persist: false},
         {name: 'category', persist: false},
         'shop_name',
+        {name: 'supplement', type: 'int'},
         'comment',
         {name: 'count', type: 'int'},
         {name: 'create_at', type: 'date', defaultValue: new Date()}

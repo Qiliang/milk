@@ -47,6 +47,18 @@ Ext.define('invoicing.view.OutPanel', {
             xtype: 'numberfield'
         },
         {
+            fieldLabel: '出库分类',
+            name: 'supplement',
+            xtype: 'combo',
+            forceSelection: true,
+            value: 0,
+            store: [
+                [0, '正常'],
+                [1, '补损'],
+                [2, '赠送']
+            ]
+        },
+        {
             xtype: 'datefield',
             anchor: '100%',
             fieldLabel: '入库时间',
@@ -62,11 +74,34 @@ Ext.define('invoicing.view.OutPanel', {
             formBind: true,
             disabled: true,
             handler: function () {
+                var me = this;
                 var form = this.up('outpanel').getForm();
-                if (form.isValid()) {
-                    Ext.create('invoicing.store.Out').add(form.getValues());
-                    this.up('window').close();
-                }
+                if (!form.isValid()) return;
+                var values = form.getValues();
+                Ext.Ajax.request({
+                    method: 'GET',
+                    url: 'proxies/' + values.proxy + '/credit',
+                    params: {good_id: values.good_id, count: values.count},
+                    success: function (response, opts) {
+                        var obj = Ext.decode(response.responseText);
+                        var canUsed = obj.credit - obj.remainder;
+                        if (canUsed >= obj.good_price) {
+                            Ext.create('invoicing.store.Out').add(values);
+                            me.up('window').close();
+                        } else {
+                            Ext.Msg.show({
+                                title: '提示',
+                                msg: '货品总金额：' + obj.good_price + '<br />可用信用额度：' + canUsed,
+                                buttons: Ext.Msg.OK,
+                                icon: Ext.Msg.WARNING
+                            });
+                        }
+                    },
+                    failure: function (response, opts) {
+                        console.log('server-side failure with status code ' + response.status);
+                    }
+                });
+
             }
         }
     ],

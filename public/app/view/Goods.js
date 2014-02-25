@@ -63,27 +63,9 @@ Ext.define('invoicing.view.Goods', {
                     text: '添加货品',
                     scope: this,
                     handler: this.onAddClick
-                },
-                {
-                    text: '应用默认单价',
-                    scope: this,
-                    handler: this.onApplyAll
                 }
+
             ];
-            this.columns.push({
-                xtype: 'actioncolumn',
-                flex: 1,
-                sortable: false,
-                menuDisabled: true,
-                items: [
-                    {
-                        icon: '/images/icons/accept.gif',
-                        tooltip: '应用全部默认单价',
-                        scope: this,
-                        handler: this.onApply
-                    }
-                ]
-            });
             this.columns.push({
                 xtype: 'actioncolumn',
                 flex: 1,
@@ -104,19 +86,7 @@ Ext.define('invoicing.view.Goods', {
         this.callParent();
         this.getStore().load();
     },
-    onApply: function (grid, rowIndex) {
-        var id = this.getStore().getAt(rowIndex).get('id');
-        Ext.create('Ext.window.Window', {title: '应用默认单价-' + id, modal: true, items: [
-            {xtype: 'applydefaultprompt', width: 300, height: 100, maximizable: true, good_id: id}
-        ]}).show();
 
-    },
-    onApplyAll: function (grid, rowIndex) {
-        Ext.create('Ext.window.Window', {title: '应用全部默认单价', modal: true, items: [
-            {xtype: 'applydefaultprompt', width: 300, height: 100, maximizable: true, good_id: 0}
-        ]}).show();
-
-    },
     onAddClick: function () {
         Ext.create('Ext.window.Window', {title: '新增货品', modal: true, items: [
             {xtype: 'gooddetail', store: this.getStore()}

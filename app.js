@@ -62,6 +62,7 @@ app.get('/proxies', proxies.all);
 app.post('/proxies/:id', proxies.add);
 app.put('/proxies/:id', proxies.update);
 app.delete('/proxies/:id', proxies.delete);
+app.get('/proxies/:id/credit', proxies.credit);
 
 app.get('/proxyins', proxyins.all);
 app.post('/proxyins', proxyins.add);

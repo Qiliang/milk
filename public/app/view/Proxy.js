@@ -34,6 +34,13 @@ Ext.define('invoicing.view.Proxy', {
             flex: 1,
             sortable: false,
             dataIndex: 'remainder'
+        },
+        {
+            text: '可用金额',
+            disabled: false,
+            flex: 1,
+            sortable: false,
+            dataIndex: 'canUsed'
         }
     ],
 

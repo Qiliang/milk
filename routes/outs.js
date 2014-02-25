@@ -32,7 +32,7 @@ exports.all = function (req, res) {
 //        }).done();
 
 };
-var insert_stmt = " insert into outs(proxy,comment,count,shop_name,good_id,create_at,modifier) values($proxy,$comment,$count,$shop_name,$good_id,$create_at,$modifier)";
+var insert_stmt = " insert into outs(supplement,proxy,comment,count,shop_name,good_id,create_at,modifier) values($supplement,$proxy,$comment,$count,$shop_name,$good_id,$create_at,$modifier)";
 exports.add = function (req, res) {
     if (_.isArray(req.body)) {
         var batch = _(req.body).map(function (item) {
@@ -55,7 +55,7 @@ exports.add = function (req, res) {
 
 exports.update = function (req, res) {
 
-    db.run(" update outs set proxy=$proxy,comment=$comment,count=$count,shop_name=$shop_name,good_id=$good_id,create_at=$create_at,modifier=$modifier where id=$id", db.args(req.body)).done(function (text) {
+    db.run(" update outs set supplement=$supplement,proxy=$proxy,comment=$comment,count=$count,shop_name=$shop_name,good_id=$good_id,create_at=$create_at,modifier=$modifier where id=$id", db.args(req.body)).done(function (text) {
         res.send(text);
     }, function (err) {
         res.send(500, err);

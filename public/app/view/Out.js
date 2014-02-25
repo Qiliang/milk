@@ -77,10 +77,16 @@ Ext.define('invoicing.view.Out', {
             }
         },
         {
-            text: '备注',
+            text: '送货类型',
             flex: 1,
             sortable: false,
-            dataIndex: 'comment'
+            xtype: 'booleancolumn',
+            dataIndex: 'supplement',
+            renderer: function (value) {
+                if (value === 0) return '正常';
+                if (value === 1) return '补损';
+                if (value === 2) return  '赠送';
+            }
         },
         {
             header: '修改人',
@@ -130,10 +136,10 @@ Ext.define('invoicing.view.Out', {
         this.columns = Ext.clone(this._columns);
         this.tbar = Ext.clone(this._tbar);
         if (window.capability('5-2')) {
-            this.cellEditing = new Ext.grid.plugin.CellEditing({
-                clicksToEdit: 1
-            });
-            this.plugins = [this.cellEditing];
+//            this.cellEditing = new Ext.grid.plugin.CellEditing({
+//                clicksToEdit: 1
+//            });
+//            this.plugins = [this.cellEditing];
             this.tbar.splice(0, 0, {
                 text: '货品出库',
                 scope: this,

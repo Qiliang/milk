@@ -4,31 +4,16 @@ var Q = require('Q');
 
 exports.all = function (req, res) {
 
-
-    Q.all([db.all('select * from proxies'), db.all('select sum(money) total,proxy_id from proxyins group by proxy_id'), db.all('select sum(count*price) total,proxy proxy_id from outs_view group by proxy')])
-        .spread(function (rows, proxyins, outs, goods) {
+    Q.all([db.all('select * from proxies'),
+            db.all('select sum(money) total,proxy_id from proxyins group by proxy_id'),
+            db.all('select sum(count*price) total,proxy proxy_id from outs_view where supplement=$supplement group by proxy', {$supplement: 0})])
+        .spread(function (rows, proxyins, outs) {
             _(rows).each(function (proxy) {
                 proxy.remainder = 0;
                 proxy.remainder += getByProxy(proxyins, outs, proxy.id);
             });
             res.send(rows);
         });
-
-//    Q.all([db.all('select * from outs'), db.all('select * from ins')]).spread(function (outs, ins) {
-//        var stat = stat_price(outs, ins);
-//        db.all('select * from proxies').done(function (rows) {
-//            _(rows).each(function (row) {
-//                if (_.isUndefined(stat[row.id])) {
-//                    row.remainder = 0;
-//                } else {
-//                    row.remainder = stat[row.id];
-//                }
-//
-//            });
-//            res.send(rows);
-//        });
-//    });
-
 
 };
 
@@ -69,11 +54,21 @@ exports.delete = function (req, res) {
 
 exports.credit = function (req, res) {
     var good_id = req.query.good_id,
-        proxy_id = req.query.proxy_id,
+        proxy_id = req.param('id'),
         count = req.query.count;
 
-
-    res.end();
+    Q.all([db.get('select * from proxies where id=$id', {$id: proxy_id}),
+            db.all('select sum(money) total,proxy_id from proxyins group by proxy_id'),
+            db.all('select sum(count*price) total,proxy proxy_id from outs_view where supplement=$supplement group by proxy', {$supplement: 0}),
+            db.get('select * from goods where id=$id', {$id: good_id})])
+        .spread(function (proxy, proxyins, outs, good) {
+            proxy.remainder = 0;
+            proxy.remainder += getByProxy(proxyins, outs, proxy.id);
+            proxy.good_price = good.price * count
+            res.send(proxy);
+        }).catch(function (err) {
+            res.send(500, err);
+        });
 };
 
 
