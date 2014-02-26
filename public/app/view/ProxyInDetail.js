@@ -35,18 +35,6 @@ Ext.define('invoicing.view.ProxyInDetail', {
             store: Ext.create('invoicing.store.Shop')
         },
         {
-            fieldLabel: '货品名称',
-            name: 'good_id',
-            xtype: 'combo',
-            allowBlank: false,
-            typeAhead: true,
-            triggerAction: 'all',
-            displayField: 'name',
-            valueField: 'id',
-            forceSelection: true,
-            store: Ext.create('invoicing.store.Goods')
-        },
-        {
             xtype: 'datefield',
             allowBlank: false,
             anchor: '100%',

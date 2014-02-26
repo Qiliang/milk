@@ -5,12 +5,17 @@ var Q = require('Q');
 exports.all = function (req, res) {
 
     Q.all([db.all('select * from proxies'),
+            db.get('select * from goods'),
             db.all('select sum(money) total,proxy_id from proxyins group by proxy_id'),
             db.all('select sum(count*price) total,proxy proxy_id from outs_view where supplement=$supplement group by proxy', {$supplement: 0})])
-        .spread(function (rows, proxyins, outs) {
+        .spread(function (rows, good, proxyins, outs) {
             _(rows).each(function (proxy) {
+                proxy.credit_money = proxy.credit * good.price;
                 proxy.remainder = 0;
-                proxy.remainder += getByProxy(proxyins, outs, proxy.id);
+                proxy.remainder_money = 0;
+                proxy.remainder_money += getByProxy(proxyins, outs, proxy.id);
+                proxy.remainder += proxy.remainder_money / good.price;
+
             });
             res.send(rows);
         });
@@ -40,7 +45,11 @@ exports.add = function (req, res) {
 };
 
 exports.update = function (req, res) {
-    res.end();
+    db.run('update proxies set credit=$credit,name=$name where id=$id', db.args(req.body)).done(function (text) {
+        res.send(text);
+    }, function (err) {
+        res.send(500, err);
+    });
 };
 
 exports.delete = function (req, res) {

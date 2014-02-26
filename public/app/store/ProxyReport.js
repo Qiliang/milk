@@ -5,7 +5,6 @@ Ext.define('invoicing.store.ProxyReport', {
     fields: [
         'proxy_name',
         'shop_name',
-        'good_name',
         'count',
         'amount',
         'in_amount'

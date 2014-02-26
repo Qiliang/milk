@@ -1,5 +1,5 @@
 Ext.define('invoicing.view.Stock', {
-    extend: 'Ext.grid.Panel',
+    extend: 'invoicing.view.Panel',
     alias: 'widget.stock',
     store: Ext.create('invoicing.store.Stock'),
 
@@ -123,6 +123,7 @@ Ext.define('invoicing.view.Stock', {
                 buttons: Ext.Msg.OK,
                 icon: Ext.Msg.INFO
             });
+            return;
         }
         to_date.setHours(23);
         to_date.setMinutes(59);

@@ -1,5 +1,5 @@
 Ext.define('invoicing.view.Goods', {
-    extend: 'Ext.grid.Panel',
+    extend: 'invoicing.view.Panel',
     alias: 'widget.goods',
     store: Ext.create('invoicing.store.Goods'),
 

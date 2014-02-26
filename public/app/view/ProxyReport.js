@@ -1,5 +1,5 @@
 Ext.define('invoicing.view.ProxyReport', {
-    extend: 'Ext.grid.Panel',
+    extend: 'invoicing.view.Panel',
     alias: 'widget.proxyreport',
     store: Ext.create('invoicing.store.ProxyReport'),
     viewConfig: {
@@ -22,12 +22,6 @@ Ext.define('invoicing.view.ProxyReport', {
             flex: 1,
             sortable: false,
             dataIndex: 'shop_name'
-        },
-        {
-            text: '货品名称',
-            flex: 1,
-            sortable: false,
-            dataIndex: 'good_name'
         },
         {
             text: '送货量',
@@ -80,6 +74,15 @@ Ext.define('invoicing.view.ProxyReport', {
     onQuery: function () {
         var from_date = this.down('toolbar').down('datefield[name=from_date]').value;
         var to_date = this.down('toolbar').down('datefield[name=to_date]').value;
+        if (!from_date || !to_date) {
+            Ext.Msg.show({
+                title: '提示',
+                msg: '请选择日期',
+                buttons: Ext.Msg.OK,
+                icon: Ext.Msg.INFO
+            });
+            return;
+        }
         if (to_date) {
             to_date.setHours(23);
             to_date.setMinutes(59);

@@ -6,7 +6,7 @@ Ext.define('invoicing.view.TreeMenu', {
 
     tools: [
         {
-            type: 'refresh',
+            type: 'gear',
             tooltip: '重新登录',
             handler: function (event, toolEl, panelHeader) {
                 Ext.util.Cookies.clear('name');

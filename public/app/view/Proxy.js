@@ -1,5 +1,5 @@
 Ext.define('invoicing.view.Proxy', {
-    extend: 'Ext.grid.Panel',
+    extend: 'invoicing.view.Panel',
     alias: 'widget.proxy',
     store: Ext.create('invoicing.store.Proxies'),
     viewConfig: {
@@ -18,7 +18,7 @@ Ext.define('invoicing.view.Proxy', {
             }
         },
         {
-            text: '信用金额',
+            text: '信用额度（件）',
             flex: 1,
             sortable: false,
             dataIndex: 'credit',
@@ -26,14 +26,27 @@ Ext.define('invoicing.view.Proxy', {
                 xtype: 'numberfield',
                 allowBlank: false,
                 minValue: 1,
-                maxValue: 10000000
+                maxValue: 100000
             }
+        },
+        {
+            text: '已用额度（件）',
+            flex: 1,
+            sortable: false,
+            dataIndex: 'remainder'
+        },
+        {
+            text: '信用金额',
+            disabled: false,
+            flex: 1,
+            sortable: false,
+            dataIndex: 'credit_money'
         },
         {
             text: '已用金额',
             flex: 1,
             sortable: false,
-            dataIndex: 'remainder'
+            dataIndex: 'remainder_money'
         },
         {
             text: '可用金额',
@@ -47,16 +60,15 @@ Ext.define('invoicing.view.Proxy', {
     initComponent: function () {
         this.columns = Ext.clone(this._columns);
         if (window.capability('2-2')) {
+            this.cellEditing = new Ext.grid.plugin.CellEditing({
+                clicksToEdit: 1
+            });
+            this.plugins = [this.cellEditing];
             this.tbar = [
                 {
                     text: '新增送货人',
                     scope: this,
                     handler: this.onAddClick
-                },
-                {
-                    text: '刷新',
-                    scope: this,
-                    handler: this.onRefresh
                 }
             ];
             this.columns.push({
@@ -75,10 +87,6 @@ Ext.define('invoicing.view.Proxy', {
             });
         }
         this.callParent();
-        this.getStore().load();
-    },
-
-    onRefresh: function () {
         this.getStore().load();
     },
 

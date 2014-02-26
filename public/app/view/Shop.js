@@ -1,5 +1,5 @@
 Ext.define('invoicing.view.Shop', {
-    extend: 'Ext.grid.Panel',
+    extend: 'invoicing.view.Panel',
     alias: 'widget.shop',
     store: Ext.create('invoicing.store.Shop'),
     viewConfig: {

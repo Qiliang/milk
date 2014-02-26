@@ -16,7 +16,7 @@ Ext.define('invoicing.view.ProxyDetail', {
             allowBlank: false
         },
         {
-            fieldLabel: '信用金额',
+            fieldLabel: '信用额度（件）',
             xtype: 'numberfield',
             name: 'credit',
             allowBlank: false,

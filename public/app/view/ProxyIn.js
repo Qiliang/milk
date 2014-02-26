@@ -1,5 +1,5 @@
 Ext.define('invoicing.view.ProxyIn', {
-    extend: 'Ext.grid.Panel',
+    extend: 'invoicing.view.Panel',
     alias: 'widget.proxyin',
     store: Ext.create('invoicing.store.ProxyIns'),
     viewConfig: {
@@ -18,12 +18,6 @@ Ext.define('invoicing.view.ProxyIn', {
             flex: 1,
             sortable: false,
             dataIndex: 'shop_name'
-        },
-        {
-            text: '货品名称',
-            flex: 1,
-            sortable: false,
-            dataIndex: 'good_name'
         },
         {
             text: '入账日期',
