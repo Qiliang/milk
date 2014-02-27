@@ -69,11 +69,14 @@ exports.credit = function (req, res) {
     Q.all([db.get('select * from proxies where id=$id', {$id: proxy_id}),
             db.all('select sum(money) total,proxy_id from proxyins group by proxy_id'),
             db.all('select sum(count*price) total,proxy proxy_id from outs_view where supplement=$supplement group by proxy', {$supplement: 0}),
-            db.get('select * from goods where id=$id', {$id: good_id})])
+            db.get('select * from goods')])
         .spread(function (proxy, proxyins, outs, good) {
+            proxy.credit_money = proxy.credit * good.price;
             proxy.remainder = 0;
-            proxy.remainder += getByProxy(proxyins, outs, proxy.id);
-            proxy.good_price = good.price * count
+            proxy.remainder_money = 0;
+            proxy.remainder_money += getByProxy(proxyins, outs, proxy.id);
+            proxy.remainder += proxy.remainder_money / good.price;
+
             res.send(proxy);
         }).catch(function (err) {
             res.send(500, err);

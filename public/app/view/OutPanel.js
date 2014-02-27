@@ -78,30 +78,34 @@ Ext.define('invoicing.view.OutPanel', {
                 var form = this.up('outpanel').getForm();
                 if (!form.isValid()) return;
                 var values = form.getValues();
-                Ext.Ajax.request({
-                    method: 'GET',
-                    url: 'proxies/' + values.proxy + '/credit',
-                    params: {good_id: values.good_id, count: values.count},
-                    success: function (response, opts) {
-                        var obj = Ext.decode(response.responseText);
-                        var canUsed = obj.credit - obj.remainder;
-                        if (canUsed >= obj.good_price) {
-                            Ext.create('invoicing.store.Out').add(values);
-                            me.up('window').close();
-                        } else {
-                            Ext.Msg.show({
-                                title: '提示',
-                                msg: '货品总金额：' + obj.good_price + '<br />可用信用额度：' + canUsed,
-                                buttons: Ext.Msg.OK,
-                                icon: Ext.Msg.WARNING
-                            });
+                if (values.supplement > 0) {
+                    Ext.create('invoicing.store.Out').add(values);
+                    me.up('window').close();
+                } else {
+                    Ext.Ajax.request({
+                        method: 'GET',
+                        url: 'proxies/' + values.proxy + '/credit',
+                        params: {good_id: values.good_id, count: values.count},
+                        success: function (response, opts) {
+                            var obj = Ext.decode(response.responseText);
+                            var canUsed = obj.credit - obj.remainder;
+                            if (canUsed >= values.count) {
+                                Ext.create('invoicing.store.Out').add(values);
+                                me.up('window').close();
+                            } else {
+                                Ext.Msg.show({
+                                    title: '提示',
+                                    msg: '货品数量：' + values.count + '<br />可用信用额度(件)：' + canUsed,
+                                    buttons: Ext.Msg.OK,
+                                    icon: Ext.Msg.WARNING
+                                });
+                            }
+                        },
+                        failure: function (response, opts) {
+                            console.log('server-side failure with status code ' + response.status);
                         }
-                    },
-                    failure: function (response, opts) {
-                        console.log('server-side failure with status code ' + response.status);
-                    }
-                });
-
+                    });
+                }
             }
         }
     ],
