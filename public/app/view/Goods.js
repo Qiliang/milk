@@ -53,35 +53,33 @@ Ext.define('invoicing.view.Goods', {
 
     initComponent: function () {
         this.columns = Ext.clone(this._columns);
-        if (window.capability('1-2')) {
-            this.cellEditing = new Ext.grid.plugin.CellEditing({
-                clicksToEdit: 1
-            });
-            this.plugins = [this.cellEditing];
-            this.tbar = [
+        this.cellEditing = new Ext.grid.plugin.CellEditing({
+            clicksToEdit: 1
+        });
+        this.plugins = [this.cellEditing];
+        this.tbar = [
+            {
+                text: '添加货品',
+                scope: this,
+                handler: this.onAddClick
+            }
+
+        ];
+        this.columns.push({
+            xtype: 'actioncolumn',
+            flex: 1,
+            sortable: false,
+            menuDisabled: true,
+            items: [
                 {
-                    text: '添加货品',
+                    icon: '/images/icons/delete.gif',
+                    tooltip: '删除',
                     scope: this,
-                    handler: this.onAddClick
+                    handler: this.onRemoveClick
                 }
+            ]
+        });
 
-            ];
-            this.columns.push({
-                xtype: 'actioncolumn',
-                flex: 1,
-                sortable: false,
-                menuDisabled: true,
-                items: [
-                    {
-                        icon: '/images/icons/delete.gif',
-                        tooltip: '删除',
-                        scope: this,
-                        handler: this.onRemoveClick
-                    }
-                ]
-            });
-
-        }
 
         this.callParent();
         this.getStore().load();

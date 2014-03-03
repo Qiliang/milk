@@ -2,19 +2,8 @@ Ext.Loader.setConfig({enabled: true});
 Ext.Loader.setPath('Ext.ux.exporter', 'extjs/src/ux');
 
 window.all_roles = [
-    {id: '1-1', name: '货品信息(浏览)'},
-    {id: '1-2', name: '货品信息(编辑)'},
-    {id: '2-1', name: '学校信息(浏览)'},
-    {id: '2-2', name: '学校信息(编辑)'},
-    {id: '3-1', name: '库存(浏览)'},
-    {id: '3-2', name: '库存(编辑)'},
-    {id: '4-1', name: '入库信息(浏览)'},
-    {id: '4-2', name: '入库信息(编辑)'},
-    {id: '5-1', name: '出库信息(浏览)'},
-    {id: '5-2', name: '出库信息(编辑)'},
-    {id: '6-1', name: '库存余额(浏览)'},
-    {id: '6-2', name: '库存余额(编辑)'},
-    {id: '999', name: '用户管理'}
+    {id: '0001', name: '管理员'},
+    {id: '0002', name: '普通用户'}
 ];
 window.capability = function (id) {
     var roles = Ext.util.Cookies.get('roles').split(',');

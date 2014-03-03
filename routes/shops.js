@@ -1,7 +1,7 @@
 var db = require('../utilties/db');
 
 exports.all = function (req, res) {
-    db.all('select * from shops').done(function (rows) {
+    db.all('select * from shops order by id').done(function (rows) {
         res.send(rows);
     });
 };

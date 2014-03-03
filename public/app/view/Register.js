@@ -5,26 +5,29 @@ Ext.define('invoicing.view.Register', {
     width: 350,
     layout: 'anchor',
     defaults: {
-        anchor: '100%'
+        anchor: '100%',
+        allowBlank: false,
     },
 
     defaultType: 'textfield',
     items: [
         {
             fieldLabel: '名称',
-            name: 'name',
-            allowBlank: false
+            name: 'name'
         },
         {
             fieldLabel: '密码',
-            name: 'password',
-            allowBlank: false
+            name: 'password'
         },
         {
-            xtype: 'fieldcontainer',
+            xtype: 'combo',
             fieldLabel: '角色',
-            defaultType: 'checkboxfield',
-            items: []
+            name: 'roles',
+            forceSelection: true,
+            store: [
+                ['0001', '管理员'],
+                ['0002', '普通用户']
+            ]
         }
     ],
 
@@ -52,17 +55,6 @@ Ext.define('invoicing.view.Register', {
     ],
 
     initComponent: function () {
-        var me = this;
-        if (me.items[2].items.length == 0) {
-            window.all_roles.forEach(function (item) {
-                me.items[2].items.push({
-                    boxLabel: item.name,
-                    name: 'roles',
-                    inputValue: item.id
-                });
-            });
-        }
-
         this.callParent();
     }
 })

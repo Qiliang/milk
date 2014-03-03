@@ -2,13 +2,21 @@ Ext.define('invoicing.view.Stock', {
     extend: 'invoicing.view.Panel',
     alias: 'widget.stock',
     store: Ext.create('invoicing.store.Stock'),
-
+    features: [
+        {
+            ftype: 'summary'
+        }
+    ],
     columns: [
         {
             text: '货品编号',
             flex: 1,
             sortable: false,
-            dataIndex: 'id'
+            dataIndex: 'id',
+            summaryType: 'count',
+            summaryRenderer: function (value, summaryData, dataIndex) {
+                return Ext.String.format('{0} 项总计', value);
+            }
         },
         {
             text: '品项',
@@ -26,25 +34,29 @@ Ext.define('invoicing.view.Stock', {
             text: '期初',
             flex: 1,
             sortable: false,
-            dataIndex: 'begin_count'
+            dataIndex: 'begin_count',
+            summaryType: 'sum'
         },
         {
             text: '入库',
             flex: 1,
             sortable: false,
-            dataIndex: 'in_count'
+            dataIndex: 'in_count',
+            summaryType: 'sum'
         },
         {
             text: '出库',
             flex: 1,
             sortable: false,
-            dataIndex: 'out_count'
+            dataIndex: 'out_count',
+            summaryType: 'sum'
         },
         {
             text: '总库存',
             flex: 1,
             sortable: false,
-            dataIndex: 'total_count'
+            dataIndex: 'total_count',
+            summaryType: 'sum'
         },
         {
             text: '总库存总额',
@@ -52,16 +64,14 @@ Ext.define('invoicing.view.Stock', {
             sortable: false,
             xtype: 'numbercolumn',
             format: '0.00',
-            dataIndex: 'total_price'
+            dataIndex: 'total_price',
+            summaryType: 'sum'
         }
     ],
 
 
     initComponent: function () {
-        if (!window.capability('3-2')) {
-            this.columns[7].xtype = 'templatecolumn';
-            this.columns[7].tpl = '#####';
-        }
+
         this.tbar = [
             {
                 xtype: 'datefield',

@@ -38,12 +38,7 @@ Ext.define('invoicing.view.In', {
             sortable: false,
             flex: 1,
             xtype: 'numbercolumn',
-            format: '0.00',
-            editor: {
-                xtype: 'numberfield',
-                allowBlank: false
-
-            }
+            format: '0.00'
         },
         {
             header: '总价',
@@ -81,7 +76,14 @@ Ext.define('invoicing.view.In', {
             text: '效期',
             flex: 1,
             sortable: false,
-            dataIndex: 'expiry'
+            dataIndex: 'expiry',
+            editor: {
+                xtype: 'numberfield',
+                allowBlank: false,
+                minValue: 1,
+                maxValue: 10000
+
+            }
         },
         {
             text: '备注',
@@ -115,37 +117,30 @@ Ext.define('invoicing.view.In', {
     initComponent: function () {
         this.columns = Ext.clone(this._columns);
         this.tbar = Ext.clone(this._tbar);
-        if (window.capability('4-2')) {
-//            this.cellEditing = new Ext.grid.plugin.CellEditing({
-//                clicksToEdit: 1
-//            });
-//            this.plugins = [this.cellEditing];
-            this.tbar.splice(0, 0, {
-                text: '货品入库',
-                scope: this,
-                handler: this.onAddClick
-            });
-            this.columns.push({
-                xtype: 'actioncolumn',
-                flex: 1,
-                sortable: false,
-                menuDisabled: true,
-                items: [
-                    {
-                        icon: '/images/icons/delete.gif',
-                        tooltip: 'Delete Plant',
-                        scope: this,
-                        handler: this.onRemoveClick
-                    }
-                ]
-            });
 
-        } else {
-            this.columns[5].xtype = 'templatecolumn';
-            this.columns[5].tpl = '#####';
-            this.columns[6].xtype = 'templatecolumn';
-            this.columns[6].tpl = '#####';
-        }
+        this.cellEditing = new Ext.grid.plugin.CellEditing({
+            clicksToEdit: 1
+        });
+        this.plugins = [this.cellEditing];
+        this.tbar.splice(0, 0, {
+            text: '货品入库',
+            scope: this,
+            handler: this.onAddClick
+        });
+        this.columns.push({
+            xtype: 'actioncolumn',
+            flex: 1,
+            sortable: false,
+            menuDisabled: true,
+            items: [
+                {
+                    icon: '/images/icons/delete.gif',
+                    tooltip: 'Delete Plant',
+                    scope: this,
+                    handler: this.onRemoveClick
+                }
+            ]
+        });
 
         this.tbar.push({
             text: '查询',
@@ -157,13 +152,11 @@ Ext.define('invoicing.view.In', {
             scope: this,
             handler: this.onExport
         });
-        if (window.capability('5-2')) {
-            this.tbar.push({
-                text: '删除',
-                scope: this,
-                handler: this.onDelete
-            });
-        }
+        this.tbar.push({
+            text: '删除',
+            scope: this,
+            handler: this.onDelete
+        });
 
         this.callParent();
         this.on('edit', function (editor, e) {

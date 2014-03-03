@@ -31,23 +31,10 @@ Ext.define('invoicing.view.Users', {
                     dataIndex: 'roles',
                     flex: 1,
                     editor: new Ext.form.field.ComboBox({
-                        typeAhead: true,
-                        triggerAction: 'all',
-                        multiSelect: true,
+                        forceSelection:true,
                         store: [
-                            ['1-1', '货品信息(浏览)1-1'],
-                            ['1-2', '货品信息(编辑)1-2'],
-                            ['2-1', '学校信息(浏览)2-1'],
-                            ['2-2', '学校信息(编辑)2-2'],
-                            ['3-1', '库存(浏览)3-1'],
-                            ['3-2', '库存(编辑)3-2'],
-                            ['4-1', '入库信息(浏览)4-1'],
-                            ['4-2', '入库信息(编辑)4-2'],
-                            ['5-1', '出库信息(浏览)5-1'],
-                            ['5-2', '出库信息(编辑)5-2'],
-                            ['6-1', '库存余额(浏览)6-1'],
-                            ['6-2', '库存余额(编辑)6-2'],
-                            ['999', '用户管理999']
+                            ['0001', '管理员'],
+                            ['0002', '普通用户']
                         ]
                     })
                 },
@@ -59,7 +46,7 @@ Ext.define('invoicing.view.Users', {
                     items: [
                         {
                             icon: '/images/icons/delete.gif',
-                            tooltip: 'Delete Plant',
+                            tooltip: '删除',
                             scope: this,
                             handler: this.onRemoveClick
                         }
@@ -92,16 +79,20 @@ Ext.define('invoicing.view.Users', {
 
     onRemoveClick: function (grid, rowIndex) {
         var me = this;
-        Ext.Msg.show({
-            title: '确认删除',
-            msg: '确认删除?',
-            buttons: Ext.Msg.YESNO,
-            icon: Ext.Msg.QUESTION,
-            fn: function (buttonId) {
-                if (buttonId === 'yes') {
-                    me.getStore().removeAt(rowIndex);
+        if (me.getStore().getAt(rowIndex).get('name') === "admin") {
+            Ext.Msg.alert('消息', '不能删除系统用户');
+        }else{
+            Ext.Msg.show({
+                title: '确认删除',
+                msg: '确认删除?',
+                buttons: Ext.Msg.YESNO,
+                icon: Ext.Msg.QUESTION,
+                fn: function (buttonId) {
+                    if (buttonId === 'yes') {
+                        me.getStore().removeAt(rowIndex);
+                    }
                 }
-            }
-        });
+            });
+        }
     }
 })

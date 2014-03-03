@@ -59,33 +59,32 @@ Ext.define('invoicing.view.Proxy', {
 
     initComponent: function () {
         this.columns = Ext.clone(this._columns);
-        if (window.capability('2-2')) {
-            this.cellEditing = new Ext.grid.plugin.CellEditing({
-                clicksToEdit: 1
-            });
-            this.plugins = [this.cellEditing];
-            this.tbar = [
+        this.cellEditing = new Ext.grid.plugin.CellEditing({
+            clicksToEdit: 1
+        });
+        this.plugins = [this.cellEditing];
+        this.tbar = [
+            {
+                text: '新增送货人',
+                scope: this,
+                handler: this.onAddClick
+            }
+        ];
+        this.columns.push({
+            xtype: 'actioncolumn',
+            flex: 1,
+            sortable: false,
+            menuDisabled: true,
+            items: [
                 {
-                    text: '新增送货人',
+                    icon: '/images/icons/delete.gif',
+                    tooltip: '删除',
                     scope: this,
-                    handler: this.onAddClick
+                    handler: this.onRemoveClick
                 }
-            ];
-            this.columns.push({
-                xtype: 'actioncolumn',
-                flex: 1,
-                sortable: false,
-                menuDisabled: true,
-                items: [
-                    {
-                        icon: '/images/icons/delete.gif',
-                        tooltip: '删除',
-                        scope: this,
-                        handler: this.onRemoveClick
-                    }
-                ]
-            });
-        }
+            ]
+        });
+
         this.callParent();
         this.getStore().load();
     },
