@@ -7,11 +7,14 @@ var routes = require('./routes');
 var goods = require('./routes/goods');
 var category = require('./routes/category');
 var shops = require('./routes/shops');
+var depots = require('./routes/depots');
 var proxies = require('./routes/proxies');
 var proxyins = require('./routes/proxyins');
 var ins = require('./routes/ins');
 var auth = require('./routes/auth');
 var outs = require('./routes/outs');
+var depotouts = require('./routes/depotouts');
+var depotins = require('./routes/depotins');
 var stock = require('./routes/stock');
 var surplus = require('./routes/surplus');
 var proxyreport = require('./routes/proxyreport');
@@ -58,6 +61,11 @@ app.post('/shops', shops.add);
 app.put('/shops/:id', shops.update);
 app.delete('/shops/:id', shops.delete);
 
+app.get('/depots', depots.all);
+app.post('/depots', depots.add);
+app.put('/depots', depots.update);
+app.delete('/depots/:id', depots.delete);
+
 app.get('/proxies', proxies.all);
 app.post('/proxies/:id', proxies.add);
 app.put('/proxies/:id', proxies.update);
@@ -74,11 +82,22 @@ app.post('/ins', ins.add);
 app.put('/ins/:id', ins.update);
 app.delete('/ins/:id', ins.delete);
 
-app.get('/condition', outs.can);
 app.get('/outs', outs.all);
 app.post('/outs', outs.add);
 app.put('/outs/:_id', outs.update);
 app.delete('/outs/:_id', outs.delete);
+
+
+app.get('/depotouts', depotouts.all);
+app.post('/depotouts', depotouts.add);
+app.put('/depotouts/:id', depotouts.update);
+app.delete('/depotouts/:id', depotouts.delete);
+
+app.get('/depotins', depotins.all);
+app.post('/depotins', depotins.add);
+app.put('/depotins/:id', depotins.update);
+app.delete('/depotins/:id', depotins.delete);
+
 app.get('/stock', stock.query);
 app.get('/surplus', surplus.query);
 app.get('/proxyreport', proxyreport.query);

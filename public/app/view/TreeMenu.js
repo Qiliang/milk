@@ -19,17 +19,20 @@ Ext.define('invoicing.view.TreeMenu', {
         if (window.capability('0001')) {
             items.push({id: 'goods', text: "货品信息", leaf: true });
             items.push({id: 'shop', text: "学校信息", leaf: true });
+            items.push({id: 'depot', text: "分仓信息", leaf: true });
             items.push({ id: 'proxy', text: "送货人信息", leaf: true });
             items.push({id: 'proxyin', text: "送货人入账", leaf: true });
             items.push({ id: 'stock', text: "库存", leaf: true });
-            items.push({id: 'in', text: "入库登记", leaf: true });
-            items.push({id: 'out', text: "出库登记", leaf: true });
+            items.push({id: 'in', text: "总仓入库", leaf: true });
+            items.push({id: 'out', text: "总仓出库", leaf: true });
+            items.push({id: 'depotin', text: "分仓入库", leaf: true });
+            items.push({id: 'depotout', text: "分仓出库", leaf: true });
             items.push({id: 'proxyreport', text: "送货人报表", leaf: true });
             items.push({id: 'users', text: "用户管理", leaf: true });
         } else {
             items.push({ id: 'stock', text: "库存", leaf: true });
-            items.push({id: 'in', text: "入库登记", leaf: true });
-            items.push({id: 'out', text: "出库登记", leaf: true });
+            items.push({id: 'in', text: "总仓入库", leaf: true });
+            items.push({id: 'out', text: "总仓出库", leaf: true });
         }
 
 

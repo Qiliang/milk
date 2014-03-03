@@ -20,13 +20,15 @@ exports.all = function (req, res) {
     if (shop) {
         where += ' and shop_name="' + shop + '"';
     }
-    db.all('select * from outs_view ' + where + order).done(function (rows) {
+    db.all('select * from depotins_view ' + where + order).done(function (rows) {
         res.send(rows);
     }, function (err) {
         res.send(500, err);
     });
 
 };
+
+
 var insert_stmt = " insert into outs(supplement,proxy,comment,count,shop_name,good_id,create_at,modifier,depot_id) values($supplement,$proxy,$comment,$count,$shop_name,$good_id,$create_at,$modifier,$depot_id)";
 exports.add = function (req, res) {
     if (_.isArray(req.body)) {

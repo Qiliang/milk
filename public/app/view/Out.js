@@ -135,9 +135,9 @@ Ext.define('invoicing.view.Out', {
         });
         this.plugins = [this.cellEditing];
         this.tbar.splice(0, 0, {
-            text: '货品出库',
+            text: '总仓出库',
             scope: this,
-            handler: this.onAddClick
+            handler: this.onToProxy
         });
 
         this.columns.push({
@@ -176,15 +176,26 @@ Ext.define('invoicing.view.Out', {
         this.callParent();
     },
 
-    onAddClick: function () {
+    onToProxy: function () {
         var me = this;
-        var win = Ext.create('invoicing.view.Window', {title: '出库', items: [
+        var win = Ext.create('invoicing.view.Window', {title: '总仓到个人', items: [
             {xtype: 'outpanel'}
         ]
         });
         win.show();
 
     },
+
+    onToDepot: function () {
+        var me = this;
+        var win = Ext.create('invoicing.view.Window', {title: '总仓到分仓', items: [
+            {xtype: 'outtodepot'}
+        ]
+        });
+        win.show();
+
+    },
+
     onRemoveClick: function (grid, rowIndex) {
         var me = this;
         Ext.Msg.show({

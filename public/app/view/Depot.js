@@ -1,7 +1,7 @@
-Ext.define('invoicing.view.Shop', {
+Ext.define('invoicing.view.Depot', {
     extend: 'invoicing.view.Panel',
-    alias: 'widget.shop',
-    store: Ext.create('invoicing.store.Shop'),
+    alias: 'widget.depot',
+    store: Ext.create('invoicing.store.Depots'),
     viewConfig: {
         stripeRows: true,
         enableTextSelection: true
@@ -9,28 +9,46 @@ Ext.define('invoicing.view.Shop', {
 
     _columns: [
         {
-            text: '学校编号',
+            text: '分仓编号',
             flex: 1,
             sortable: false,
             dataIndex: 'id'
         },
         {
-            text: '学校名称',
+            text: '分仓名称',
             flex: 1,
             sortable: false,
             dataIndex: 'name',
             editor: {
                 allowBlank: false
             }
+        },
+        {
+            text: '学习编号匹配',
+            flex: 1,
+            sortable: false,
+            dataIndex: 'matching',
+            editor: {
+                allowBlank: false
+            }
+        },
+        {
+            text: '送货人',
+            flex: 1,
+            sortable: false,
+            dataIndex: 'proxy_name'
         }
     ],
 
     initComponent: function () {
         this.columns = Ext.clone(this._columns);
-
+        this.cellEditing = new Ext.grid.plugin.CellEditing({
+            clicksToEdit: 1
+        });
+        this.plugins = [this.cellEditing];
         this.tbar = [
             {
-                text: '新增学校',
+                text: '新增分仓',
                 scope: this,
                 handler: this.onAddClick
             }
@@ -55,8 +73,8 @@ Ext.define('invoicing.view.Shop', {
     },
 
     onAddClick: function () {
-        Ext.create('Ext.window.Window', {title: '新增学校', modal: true, items: [
-            {xtype: 'shopdetail', store: this.getStore()}
+        Ext.create('Ext.window.Window', {title: '新增分仓', modal: true, items: [
+            {xtype: 'depotdetail', store: this.getStore()}
         ]}).show();
     },
     onRemoveClick: function (grid, rowIndex) {

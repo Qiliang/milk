@@ -20,7 +20,7 @@ exports.all = function (req, res) {
     if (shop) {
         where += ' and shop_name="' + shop + '"';
     }
-    db.all('select * from outs_view ' + where + order).done(function (rows) {
+    db.all('select * from depotouts_view ' + where + order).done(function (rows) {
         res.send(rows);
     }, function (err) {
         res.send(500, err);
