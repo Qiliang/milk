@@ -14,6 +14,12 @@ Ext.define('invoicing.view.DepotOut', {
             dataIndex: 'name'
         },
         {
+            text: '分仓名称',
+            flex: 1,
+            sortable: true,
+            dataIndex: 'depot_name'
+        },
+        {
             text: '学校名称',
             flex: 1,
             sortable: false,
@@ -55,7 +61,7 @@ Ext.define('invoicing.view.DepotOut', {
             editor: {
                 xtype: 'numberfield',
                 allowBlank: false,
-                minValue: 1,
+                minValue: 0.01,
                 maxValue: 100000
             }
         },

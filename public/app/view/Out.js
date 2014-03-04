@@ -55,7 +55,7 @@ Ext.define('invoicing.view.Out', {
             editor: {
                 xtype: 'numberfield',
                 allowBlank: false,
-                minValue: 1,
+                minValue: 0.01,
                 maxValue: 100000
             }
         },

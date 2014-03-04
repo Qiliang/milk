@@ -56,7 +56,7 @@ function total_in(from_date, to_date, category) {
 
 function total_out(from_date, to_date, category) {
     var deferred = Q.defer();
-    db.all('select good_id, sum(count) count from outs_view where create_at>=$from_date and create_at<=$to_date ' + where_category(category) + ' group by good_id', {$from_date: from_date, $to_date: to_date}).done(function (rows) {
+    db.all('select good_id, sum(count) count from outs_real where create_at>=$from_date and create_at<=$to_date ' + where_category(category) + ' group by good_id', {$from_date: from_date, $to_date: to_date}).done(function (rows) {
         deferred.resolve(rows);
     }, function (err) {
         deferred.reject(err);
@@ -72,7 +72,7 @@ function d_value(to_date, category, included) {
     Q.all([db.all('select * from goods where 1=1 ' + where_category(category) + ' order by substr(id,-7,7)'),
             db.all('select * from ins where create_at>date($to_date,"-1 year") order by create_at desc', {$to_date: to_date}),
             db.all('select good_id,sum(count) count from ins  where create_at' + op + '$to_date  group by good_id', {$to_date: to_date}),
-            db.all('select good_id,sum(count) count from outs where create_at' + op + '$to_date  group by good_id', {$to_date: to_date})]
+            db.all('select good_id,sum(count) count from outs_real where create_at' + op + '$to_date  group by good_id', {$to_date: to_date})]
         ).spread(function (goods, ins_history, ins, outs) {
             var result = [];
             _(goods).each(function (good) {

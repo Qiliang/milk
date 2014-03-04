@@ -69,7 +69,7 @@ Ext.define('invoicing.view.DepotOutPanel', {
             fieldLabel: '数量',
             name: 'count',
             value: 1,
-            minValue: 1,
+            minValue: 0.01,
             maxValue: 100000,
             xtype: 'numberfield'
         },

@@ -6,6 +6,7 @@ Ext.define('invoicing.model.Out', {
         'good_id',
         'proxy',
         {name: 'proxy_name', persist: false},
+        {name: 'depot_name', persist: false},
         {name: 'modifier', type: 'string'},
         {name: 'name', persist: false},
         {name: 'spec', persist: false},

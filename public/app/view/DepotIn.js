@@ -14,6 +14,12 @@ Ext.define('invoicing.view.DepotIn', {
             dataIndex: 'name'
         },
         {
+            text: '分仓名称',
+            flex: 1,
+            sortable: true,
+            dataIndex: 'depot_name'
+        },
+        {
             text: '送货人',
             flex: 1,
             sortable: true,

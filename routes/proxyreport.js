@@ -6,7 +6,7 @@ exports.query = function (req, res) {
     var from_date = db.toDateString(req.query.from_date),
         to_date = db.toDateString(req.query.to_date);
 
-    Q.all([db.all('select sum(count) count,shop_name,name,price,proxy_name from outs_view where supplement=$supplement and create_at>=$from and create_at<=$to group by shop_name,proxy_name', {$supplement: 0, $from: from_date, $to: to_date})
+    Q.all([db.all('select sum(count) count,shop_name,name,price,proxy_name from outs_real where supplement=$supplement and create_at>=$from and create_at<=$to group by shop_name,proxy_name', {$supplement: 0, $from: from_date, $to: to_date})
             , db.all('select sum(money) money,shop_name,proxy_name from proxyins_view where create_at>=$from and create_at<=$to group by shop_name,proxy_name', {$from: from_date, $to: to_date})
         ]).spread(function (outs, proxyins) {
             var result = [];
