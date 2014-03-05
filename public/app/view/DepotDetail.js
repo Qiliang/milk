@@ -20,7 +20,7 @@ Ext.define('invoicing.view.DepotDetail', {
             name: 'name'
         },
         {
-            fieldLabel: '学习编号匹配',
+            fieldLabel: '学校编号匹配',
             name: 'matching'
         },
         {

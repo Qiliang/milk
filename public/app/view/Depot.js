@@ -24,7 +24,7 @@ Ext.define('invoicing.view.Depot', {
             }
         },
         {
-            text: '学习编号匹配',
+            text: '学校编号匹配',
             flex: 1,
             sortable: false,
             dataIndex: 'matching',
