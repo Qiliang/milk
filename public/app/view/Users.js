@@ -4,10 +4,7 @@ Ext.define('invoicing.view.Users', {
     store: Ext.create('invoicing.store.Users'),
 
     initComponent: function () {
-        this.cellEditing = new Ext.grid.plugin.CellEditing({
-            clicksToEdit: 1
-        });
-        this.plugins = [this.cellEditing];
+
         Ext.apply(this, {
             columns: [
                 {
@@ -31,40 +28,46 @@ Ext.define('invoicing.view.Users', {
                     dataIndex: 'roles',
                     flex: 1,
                     editor: new Ext.form.field.ComboBox({
-                        forceSelection:true,
-                        store: [
-                            ['0001', '管理员'],
-                            ['0002', '普通用户']
-                        ]
+                        forceSelection: true,
+                        displayField: 'name',
+                        valueField: 'id',
+                        store: window.all_roles.map(function (item) {
+                            return [item.id, item.name]
+                        })
                     })
-                },
-                {
-                    xtype: 'actioncolumn',
-                    flex: 1,
-                    sortable: false,
-                    menuDisabled: true,
-                    items: [
-                        {
-                            icon: '/images/icons/delete.gif',
-                            tooltip: '删除',
-                            scope: this,
-                            handler: this.onRemoveClick
-                        }
-                    ]
                 }
             ],
-            selModel: {
-                selType: 'cellmodel'
-            },
-            tbar: [
+
+        });
+
+        if (window.capability('0001')) {
+
+            this.cellEditing = new Ext.grid.plugin.CellEditing({
+                clicksToEdit: 1
+            });
+            this.plugins = [this.cellEditing];
+            this.tbar = [
                 {
                     text: '添加用户',
                     scope: this,
                     handler: this.onAddClick
                 }
-            ]
-        });
-
+            ];
+            this.columns.push({
+                xtype: 'actioncolumn',
+                flex: 1,
+                sortable: false,
+                menuDisabled: true,
+                items: [
+                    {
+                        icon: '/images/icons/delete.gif',
+                        tooltip: '删除',
+                        scope: this,
+                        handler: this.onRemoveClick
+                    }
+                ]
+            });
+        }
         this.callParent();
         this.getStore().load();
 
@@ -81,7 +84,7 @@ Ext.define('invoicing.view.Users', {
         var me = this;
         if (me.getStore().getAt(rowIndex).get('name') === "admin") {
             Ext.Msg.alert('消息', '不能删除系统用户');
-        }else{
+        } else {
             Ext.Msg.show({
                 title: '确认删除',
                 msg: '确认删除?',

@@ -7,7 +7,8 @@ Ext.define('invoicing.view.DepotReport', {
         enableTextSelection: true
     },
     features: [
-        {ftype: 'grouping'}
+        {ftype: 'grouping'},
+        {ftype: 'summary'}
     ],
 
     _columns: [
@@ -15,7 +16,11 @@ Ext.define('invoicing.view.DepotReport', {
             text: '仓库名称',
             flex: 1,
             sortable: false,
-            dataIndex: 'depot_name'
+            dataIndex: 'depot_name',
+            summaryType: 'count',
+            summaryRenderer: function (value, summaryData, dataIndex) {
+                return Ext.String.format('{0} 项总计', value);
+            }
         },
         {
             text: '学校名称',
@@ -27,13 +32,26 @@ Ext.define('invoicing.view.DepotReport', {
             text: '送货量',
             flex: 1,
             sortable: false,
-            dataIndex: 'count'
+            dataIndex: 'count',
+            summaryType: 'sum'
         },
         {
             text: '送货金额',
             flex: 1,
+            xtype: 'numbercolumn',
+            format: '0.00',
             sortable: false,
-            dataIndex: 'amount'
+            dataIndex: 'amount',
+            summaryType: 'sum'
+        },
+        {
+            text: '回款金额',
+            flex: 1,
+            xtype: 'numbercolumn',
+            format: '0.00',
+            sortable: false,
+            dataIndex: 'in_amount',
+            summaryType: 'sum'
         }
 
     ],
@@ -51,6 +69,15 @@ Ext.define('invoicing.view.DepotReport', {
             fieldLabel: '结束时间',
             name: 'to_date',
             format: 'Y-m-d'
+        },
+        {
+            fieldLabel: '分仓名称',
+            name: 'proxy_name',
+            xtype: 'combo',
+            displayField: 'name',
+            valueField: 'proxy_name',
+            forceSelection: true,
+            store: Ext.create('invoicing.store.Depots')
         }
     ],
     initComponent: function () {
@@ -69,6 +96,7 @@ Ext.define('invoicing.view.DepotReport', {
     onQuery: function () {
         var from_date = this.down('toolbar').down('datefield[name=from_date]').value;
         var to_date = this.down('toolbar').down('datefield[name=to_date]').value;
+        var proxy_name = this.down('toolbar').down('combo[name=proxy_name]').value;
         if (!from_date || !to_date) {
             Ext.Msg.show({
                 title: '提示',
@@ -85,6 +113,7 @@ Ext.define('invoicing.view.DepotReport', {
         var proxy = this.getStore().getProxy();
         proxy.setExtraParam('from_date', from_date);
         proxy.setExtraParam('to_date', to_date);
+        proxy.setExtraParam('proxy_name', proxy_name);
         this.getStore().load();
 
     }

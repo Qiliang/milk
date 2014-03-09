@@ -7,7 +7,8 @@ Ext.define('invoicing.view.ProxyReport', {
         enableTextSelection: true
     },
     features: [
-        {ftype: 'grouping'}
+        {ftype: 'grouping'},
+        {ftype: 'summary'}
     ],
 
     _columns: [
@@ -15,7 +16,11 @@ Ext.define('invoicing.view.ProxyReport', {
             text: '送货人',
             flex: 1,
             sortable: false,
-            dataIndex: 'proxy_name'
+            dataIndex: 'proxy_name',
+            summaryType: 'count',
+            summaryRenderer: function (value, summaryData, dataIndex) {
+                return Ext.String.format('{0} 项总计', value);
+            }
         },
         {
             text: '学校名称',
@@ -27,19 +32,26 @@ Ext.define('invoicing.view.ProxyReport', {
             text: '送货量',
             flex: 1,
             sortable: false,
-            dataIndex: 'count'
+            dataIndex: 'count',
+            summaryType: 'sum'
         },
         {
             text: '送货金额',
             flex: 1,
+            xtype: 'numbercolumn',
+            format: '0.00',
             sortable: false,
-            dataIndex: 'amount'
+            dataIndex: 'amount',
+            summaryType: 'sum'
         },
         {
             text: '回款金额',
             flex: 1,
+            xtype: 'numbercolumn',
+            format: '0.00',
             sortable: false,
-            dataIndex: 'in_amount'
+            dataIndex: 'in_amount',
+            summaryType: 'sum'
         }
     ],
     _tbar: [

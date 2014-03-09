@@ -77,32 +77,35 @@ Ext.define('invoicing.view.ProxyIn', {
     initComponent: function () {
         this.columns = Ext.clone(this._columns);
         this.tbar = Ext.clone(this._tbar);
+
         this.tbar.push({
             text: '查询',
             scope: this,
             handler: this.onQuery
         });
 
+        if (window.capability('0001') || window.capability('0004')) {
 
-        this.tbar.splice(0, 0, {
-            text: '入账',
-            scope: this,
-            handler: this.onAddClick
-        });
-        this.columns.push({
-            xtype: 'actioncolumn',
-            flex: 1,
-            sortable: false,
-            menuDisabled: true,
-            items: [
-                {
-                    icon: '/images/icons/delete.gif',
-                    tooltip: '删除',
-                    scope: this,
-                    handler: this.onRemoveClick
-                }
-            ]
-        });
+            this.tbar.splice(0, 0, {
+                text: '入账',
+                scope: this,
+                handler: this.onAddClick
+            });
+            this.columns.push({
+                xtype: 'actioncolumn',
+                flex: 1,
+                sortable: false,
+                menuDisabled: true,
+                items: [
+                    {
+                        icon: '/images/icons/delete.gif',
+                        tooltip: '删除',
+                        scope: this,
+                        handler: this.onRemoveClick
+                    }
+                ]
+            });
+        }
 
 
         this.callParent();

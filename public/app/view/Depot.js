@@ -42,32 +42,33 @@ Ext.define('invoicing.view.Depot', {
 
     initComponent: function () {
         this.columns = Ext.clone(this._columns);
-        this.cellEditing = new Ext.grid.plugin.CellEditing({
-            clicksToEdit: 1
-        });
-        this.plugins = [this.cellEditing];
-        this.tbar = [
-            {
-                text: '新增分仓',
-                scope: this,
-                handler: this.onAddClick
-            }
-        ];
-        this.columns.push({
-            xtype: 'actioncolumn',
-            flex: 1,
-            sortable: false,
-            menuDisabled: true,
-            items: [
+        if (window.capability('0001')) {
+            this.cellEditing = new Ext.grid.plugin.CellEditing({
+                clicksToEdit: 1
+            });
+            this.plugins = [this.cellEditing];
+            this.tbar = [
                 {
-                    icon: '/images/icons/delete.gif',
-                    tooltip: '删除',
+                    text: '新增分仓',
                     scope: this,
-                    handler: this.onRemoveClick
+                    handler: this.onAddClick
                 }
-            ]
-        });
-
+            ];
+            this.columns.push({
+                xtype: 'actioncolumn',
+                flex: 1,
+                sortable: false,
+                menuDisabled: true,
+                items: [
+                    {
+                        icon: '/images/icons/delete.gif',
+                        tooltip: '删除',
+                        scope: this,
+                        handler: this.onRemoveClick
+                    }
+                ]
+            });
+        }
         this.callParent();
         this.getStore().load();
     },

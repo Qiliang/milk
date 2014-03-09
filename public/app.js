@@ -1,9 +1,12 @@
-Ext.Loader.setConfig({enabled: true});
+Ext.Loader.setConfig({enabled: true, disableCaching: false});
 Ext.Loader.setPath('Ext.ux.exporter', 'extjs/src/ux');
 
 window.all_roles = [
     {id: '0001', name: '管理员'},
-    {id: '0002', name: '普通用户'}
+    {id: '0002', name: '查看全部'},
+    {id: '0003', name: '仓库用户'},
+    {id: '0004', name: '仓库管理'},
+    {id: '0005', name: '财务管理'}
 ];
 window.capability = function (id) {
     var roles = Ext.util.Cookies.get('roles').split(',');

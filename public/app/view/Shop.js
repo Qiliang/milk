@@ -28,28 +28,29 @@ Ext.define('invoicing.view.Shop', {
     initComponent: function () {
         this.columns = Ext.clone(this._columns);
 
-        this.tbar = [
-            {
-                text: '新增学校',
-                scope: this,
-                handler: this.onAddClick
-            }
-        ];
-        this.columns.push({
-            xtype: 'actioncolumn',
-            flex: 1,
-            sortable: false,
-            menuDisabled: true,
-            items: [
+        if (window.capability('0001')) {
+            this.tbar = [
                 {
-                    icon: '/images/icons/delete.gif',
-                    tooltip: '删除',
+                    text: '新增学校',
                     scope: this,
-                    handler: this.onRemoveClick
+                    handler: this.onAddClick
                 }
-            ]
-        });
-
+            ];
+            this.columns.push({
+                xtype: 'actioncolumn',
+                flex: 1,
+                sortable: false,
+                menuDisabled: true,
+                items: [
+                    {
+                        icon: '/images/icons/delete.gif',
+                        tooltip: '删除',
+                        scope: this,
+                        handler: this.onRemoveClick
+                    }
+                ]
+            });
+        }
         this.callParent();
         this.getStore().load();
     },

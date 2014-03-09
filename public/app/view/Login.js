@@ -12,16 +12,19 @@ Ext.define('invoicing.view.Login', {
     defaultType: 'textfield',
     items: [
         {
+            xtype: 'combo',
             fieldLabel: '用户名',
             name: 'name',
-            value: 'admin',
-            allowBlank: false
+            allowBlank: false,
+            displayField: 'name',
+            valueField: 'name',
+            store: Ext.create('invoicing.store.Users')
         },
         {
             fieldLabel: '密码',
             inputType: 'password',
             name: 'password',
-            value: 'admin',
+            value: '',
             allowBlank: false
         }
 
@@ -65,7 +68,10 @@ Ext.define('invoicing.view.Login', {
             buttons: Ext.Msg.OK,
             icon: Ext.Msg.INFO
         });
+    },
+
+    initComponent: function () {
+        this.callParent();
     }
 
-})
-;
+});

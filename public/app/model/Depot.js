@@ -4,7 +4,7 @@ Ext.define('invoicing.model.Depot', {
         'id',
         'name',
         'proxy_id',
-        'proxy_name',
+        {name: 'proxy_name', persist: false},
         'matching',
         'clientId'
     ],

@@ -6,7 +6,7 @@ Ext.define('invoicing.view.Register', {
     layout: 'anchor',
     defaults: {
         anchor: '100%',
-        allowBlank: false,
+        allowBlank: false
     },
 
     defaultType: 'textfield',
@@ -24,10 +24,11 @@ Ext.define('invoicing.view.Register', {
             fieldLabel: '角色',
             name: 'roles',
             forceSelection: true,
-            store: [
-                ['0001', '管理员'],
-                ['0002', '普通用户']
-            ]
+            displayField: 'name',
+            valueField: 'id',
+            store: window.all_roles.map(function (item) {
+                return [item.id, item.name]
+            })
         }
     ],
 

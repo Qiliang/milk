@@ -6,7 +6,8 @@ Ext.define('invoicing.store.DepotReport', {
         'depot_name',
         'shop_name',
         'count',
-        'amount'
+        'amount',
+        'in_amount'
     ], proxy: {
         type: 'rest',
         url: '/depotreport'

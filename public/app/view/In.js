@@ -117,31 +117,42 @@ Ext.define('invoicing.view.In', {
     initComponent: function () {
         this.columns = Ext.clone(this._columns);
         this.tbar = Ext.clone(this._tbar);
-
-        this.cellEditing = new Ext.grid.plugin.CellEditing({
-            clicksToEdit: 1
-        });
-        this.plugins = [this.cellEditing];
-        this.tbar.splice(0, 0, {
-            text: '货品入库',
-            scope: this,
-            handler: this.onAddClick
-        });
-        this.columns.push({
-            xtype: 'actioncolumn',
-            flex: 1,
-            sortable: false,
-            menuDisabled: true,
-            items: [
-                {
-                    icon: '/images/icons/delete.gif',
-                    tooltip: 'Delete Plant',
-                    scope: this,
-                    handler: this.onRemoveClick
-                }
-            ]
-        });
-
+        if (window.capability('0001') || window.capability('0004')) {
+            this.cellEditing = new Ext.grid.plugin.CellEditing({
+                clicksToEdit: 1
+            });
+            this.plugins = [this.cellEditing];
+            this.tbar.splice(0, 0, {
+                text: '货品入库',
+                scope: this,
+                handler: this.onAddClick
+            });
+            this.columns.push({
+                xtype: 'actioncolumn',
+                flex: 1,
+                sortable: false,
+                menuDisabled: true,
+                items: [
+                    {
+                        icon: '/images/icons/delete.gif',
+                        tooltip: 'Delete Plant',
+                        scope: this,
+                        handler: this.onRemoveClick
+                    }
+                ]
+            });
+//            this.tbar.push({
+//                text: '删除',
+//                scope: this,
+//                handler: this.onDelete
+//            });
+        } else if (window.capability('0003')) {
+            this.tbar.splice(0, 0, {
+                text: '货品入库',
+                scope: this,
+                handler: this.onAddClick
+            });
+        }
         this.tbar.push({
             text: '查询',
             scope: this,
@@ -152,11 +163,7 @@ Ext.define('invoicing.view.In', {
             scope: this,
             handler: this.onExport
         });
-        this.tbar.push({
-            text: '删除',
-            scope: this,
-            handler: this.onDelete
-        });
+
 
         this.callParent();
         this.on('edit', function (editor, e) {

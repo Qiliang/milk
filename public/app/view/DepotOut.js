@@ -136,31 +136,43 @@ Ext.define('invoicing.view.DepotOut', {
     initComponent: function () {
         this.columns = Ext.clone(this._columns);
         this.tbar = Ext.clone(this._tbar);
-        this.cellEditing = new Ext.grid.plugin.CellEditing({
-            clicksToEdit: 1
-        });
-        this.plugins = [this.cellEditing];
-        this.tbar.splice(0, 0, {
-            text: '分仓出库',
-            scope: this,
-            handler: this.onAddClick
-        });
+        if (window.capability('0001') || window.capability('0004')) {
+            this.cellEditing = new Ext.grid.plugin.CellEditing({
+                clicksToEdit: 1
+            });
+            this.plugins = [this.cellEditing];
+            this.tbar.splice(0, 0, {
+                text: '分仓出库',
+                scope: this,
+                handler: this.onAddClick
+            });
+//            this.tbar.push({
+//                text: '删除',
+//                scope: this,
+//                handler: this.onDelete
+//            });
 
-        this.columns.push({
-            xtype: 'actioncolumn',
-            flex: 1,
-            sortable: false,
-            menuDisabled: true,
-            items: [
-                {
-                    icon: '/images/icons/delete.gif',
-                    tooltip: '删除',
-                    scope: this,
-                    handler: this.onRemoveClick
-                }
-            ]
-        });
-
+            this.columns.push({
+                xtype: 'actioncolumn',
+                flex: 1,
+                sortable: false,
+                menuDisabled: true,
+                items: [
+                    {
+                        icon: '/images/icons/delete.gif',
+                        tooltip: '删除',
+                        scope: this,
+                        handler: this.onRemoveClick
+                    }
+                ]
+            });
+        } else if (window.capability('0003')) {
+            this.tbar.splice(0, 0, {
+                text: '分仓出库',
+                scope: this,
+                handler: this.onAddClick
+            });
+        }
         this.tbar.push({
             text: '查询',
             scope: this,
@@ -172,11 +184,6 @@ Ext.define('invoicing.view.DepotOut', {
             handler: this.onExport
         });
 
-        this.tbar.push({
-            text: '删除',
-            scope: this,
-            handler: this.onDelete
-        });
 
 
         this.callParent();
