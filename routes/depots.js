@@ -7,6 +7,7 @@ exports.all = function (req, res) {
 };
 
 exports.add = function (req, res) {
+
     db.run(" insert into depots(id,name,proxy_id,matching) values($id,$name,$proxy_id,$matching)", db.args(req.body)).done(function (text) {
         res.send(text);
     }, function (err) {
@@ -24,7 +25,7 @@ exports.update = function (req, res) {
 };
 
 exports.delete = function (req, res) {
-    db.run(" delete from depots where id=$id", req.param('id')).done(function (text) {
+    db.run(" delete from depots where id=$id", req.body.id).done(function (text) {
         res.send(text);
     }, function (err) {
         res.send(500, err);

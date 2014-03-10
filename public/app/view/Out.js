@@ -6,12 +6,19 @@ Ext.define('invoicing.view.Out', {
         stripeRows: true,
         enableTextSelection: true
     },
+    features: [
+        {ftype: 'summary'}
+    ],
     _columns: [
         {
             text: '货品名称',
             flex: 1,
             sortable: true,
-            dataIndex: 'name'
+            dataIndex: 'name',
+            summaryType: 'count',
+            summaryRenderer: function (value, summaryData, dataIndex) {
+                return Ext.String.format('{0} 项总计', value);
+            }
         },
         {
             text: '学校名称',
@@ -52,6 +59,7 @@ Ext.define('invoicing.view.Out', {
             flex: 1,
             sortable: false,
             dataIndex: 'count',
+            summaryType: 'sum',
             editor: {
                 xtype: 'numberfield',
                 allowBlank: false,
@@ -184,7 +192,7 @@ Ext.define('invoicing.view.Out', {
 
     onToProxy: function () {
         var me = this;
-        var win = Ext.create('invoicing.view.Window', {title: '总仓到个人', items: [
+        var win = Ext.create('invoicing.view.Window', {title: '总仓出库', items: [
             {xtype: 'outpanel'}
         ]
         });

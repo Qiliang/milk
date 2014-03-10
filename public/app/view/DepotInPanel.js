@@ -27,26 +27,7 @@ Ext.define('invoicing.view.DepotInPanel', {
             displayField: 'name',
             valueField: 'id',
             forceSelection: true,
-            store: Ext.create('invoicing.store.Depots'),
-            listeners: {
-                select: function (combo, records, eOpts) {
-                    var proxyIdField = combo.nextSibling('#proxy_id');
-                    var proxyNameField = combo.nextSibling('#proxy_name');
-                    proxyIdField.setValue(records[0].get('proxy_id'));
-                    proxyNameField.setValue(records[0].get('proxy_name'));
-                }
-            }
-        },
-        {
-            fieldLabel: '送货人',
-            readOnly: true,
-            disabled: false,
-            id: 'proxy_name'
-        },
-        {
-            xtype: 'hidden',
-            name: 'proxy',
-            id: 'proxy_id'
+            store: Ext.create('invoicing.store.Depots')
         },
         {
             fieldLabel: '数量',
@@ -57,9 +38,11 @@ Ext.define('invoicing.view.DepotInPanel', {
             xtype: 'numberfield'
         },
         {
-            name: 'supplement',
-            xtype: 'hidden',
-            value: 0
+            fieldLabel: '效期',
+            name: 'expiry',
+            value: 90,
+            allowBlank: false,
+            xtype: 'numberfield'
         },
         {
             xtype: 'datefield',
@@ -81,7 +64,7 @@ Ext.define('invoicing.view.DepotInPanel', {
                 var form = this.up('depotinpanel').getForm();
                 if (!form.isValid()) return;
                 var values = form.getValues();
-                Ext.create('invoicing.store.Out').add(values);
+                Ext.create('invoicing.store.DepotIn').add(values);
                 me.up('window').close();
             }
         }

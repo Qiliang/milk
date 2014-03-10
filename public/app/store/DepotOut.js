@@ -3,7 +3,7 @@ Ext.define('invoicing.store.DepotOut', {
     autoSync: true,
     autoLoad: false,
     remoteSort: true,
-    model: 'invoicing.model.Out',
+    model: 'invoicing.model.DepotOut',
     sorters: [
         {
             property: 'create_at',

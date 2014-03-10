@@ -6,19 +6,19 @@ Ext.define('invoicing.view.In', {
         stripeRows: true,
         enableTextSelection: true
     },
-
+    features: [
+        {ftype: 'summary'}
+    ],
     _columns: [
-        {
-            text: '货品编号',
-            flex: 1,
-            sortable: true,
-            dataIndex: 'good_id'
-        },
         {
             text: '货品名称',
             flex: 1,
             sortable: true,
-            dataIndex: 'name'
+            dataIndex: 'name',
+            summaryType: 'count',
+            summaryRenderer: function (value, summaryData, dataIndex) {
+                return Ext.String.format('{0} 项总计', value);
+            }
         },
         {
             text: '规格',
@@ -34,11 +34,24 @@ Ext.define('invoicing.view.In', {
         },
         {
             header: '单价',
-            dataIndex: 'price',
+            dataIndex: 'good_price',
             sortable: false,
             flex: 1,
             xtype: 'numbercolumn',
             format: '0.00'
+        },
+        {
+            text: '数量',
+            flex: 1,
+            sortable: false,
+            dataIndex: 'count',
+            summaryType: 'sum',
+            editor: {
+                xtype: 'numberfield',
+                allowBlank: false,
+                minValue: 1,
+                maxValue: 100000
+            }
         },
         {
             header: '总价',
@@ -47,18 +60,6 @@ Ext.define('invoicing.view.In', {
             format: '0.00',
             flex: 1,
             dataIndex: 'total'
-        },
-        {
-            text: '数量',
-            flex: 1,
-            sortable: false,
-            dataIndex: 'count',
-            editor: {
-                xtype: 'numberfield',
-                allowBlank: false,
-                minValue: 1,
-                maxValue: 100000
-            }
         },
         {
             text: '入库日期',
@@ -85,12 +86,12 @@ Ext.define('invoicing.view.In', {
 
             }
         },
-        {
-            text: '备注',
-            flex: 1,
-            sortable: false,
-            dataIndex: 'comment'
-        },
+//        {
+//            text: '备注',
+//            flex: 1,
+//            sortable: false,
+//            dataIndex: 'comment'
+//        },
         {
             header: '修改人',
             dataIndex: 'modifier',
@@ -123,7 +124,7 @@ Ext.define('invoicing.view.In', {
             });
             this.plugins = [this.cellEditing];
             this.tbar.splice(0, 0, {
-                text: '货品入库',
+                text: '总仓入库',
                 scope: this,
                 handler: this.onAddClick
             });
@@ -148,7 +149,7 @@ Ext.define('invoicing.view.In', {
 //            });
         } else if (window.capability('0003')) {
             this.tbar.splice(0, 0, {
-                text: '货品入库',
+                text: '总仓入库',
                 scope: this,
                 handler: this.onAddClick
             });

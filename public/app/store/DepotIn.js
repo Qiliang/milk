@@ -1,9 +1,9 @@
 Ext.define('invoicing.store.DepotIn', {
     extend: 'Ext.data.Store',
-    //autoSync: true,
+    autoSync: true,
     autoLoad: false,
     remoteSort: true,
-    model: 'invoicing.model.Out',
+    model: 'invoicing.model.DepotIn',
     sorters: [
         {
             property: 'create_at',

@@ -6,24 +6,25 @@ Ext.define('invoicing.view.DepotIn', {
         stripeRows: true,
         enableTextSelection: true
     },
+    features: [
+        {ftype: 'summary'}
+    ],
     _columns: [
         {
             text: '货品名称',
             flex: 1,
             sortable: true,
-            dataIndex: 'name'
+            dataIndex: 'name',
+            summaryType: 'count',
+            summaryRenderer: function (value, summaryData, dataIndex) {
+                return Ext.String.format('{0} 项总计', value);
+            }
         },
         {
             text: '分仓名称',
             flex: 1,
             sortable: true,
             dataIndex: 'depot_name'
-        },
-        {
-            text: '送货人',
-            flex: 1,
-            sortable: true,
-            dataIndex: 'proxy_name'
         },
         {
             text: '规格',
@@ -38,10 +39,19 @@ Ext.define('invoicing.view.DepotIn', {
             dataIndex: 'unit'
         },
         {
-            text: '货品数量',
+            header: '单价',
+            dataIndex: 'good_price',
+            sortable: false,
+            flex: 1,
+            xtype: 'numbercolumn',
+            format: '0.00'
+        },
+        {
+            text: '数量',
             flex: 1,
             sortable: false,
             dataIndex: 'count',
+            summaryType: 'sum',
             editor: {
                 xtype: 'numberfield',
                 allowBlank: false,
@@ -50,7 +60,28 @@ Ext.define('invoicing.view.DepotIn', {
             }
         },
         {
-            text: '出库时间',
+            header: '总价',
+            sortable: false,
+            xtype: 'numbercolumn',
+            format: '0.00',
+            flex: 1,
+            dataIndex: 'total'
+        },
+        {
+            text: '效期',
+            flex: 1,
+            sortable: false,
+            dataIndex: 'expiry',
+            editor: {
+                xtype: 'numberfield',
+                allowBlank: false,
+                minValue: 1,
+                maxValue: 10000
+
+            }
+        },
+        {
+            text: '入库时间',
             flex: 1,
             dataIndex: 'create_at',
             xtype: 'datecolumn',
@@ -59,18 +90,6 @@ Ext.define('invoicing.view.DepotIn', {
                 xtype: 'datefield',
                 format: 'Y-m-d',
                 allowBlank: false
-            }
-        },
-        {
-            text: '送货类型',
-            flex: 1,
-            sortable: false,
-            xtype: 'booleancolumn',
-            dataIndex: 'supplement',
-            renderer: function (value) {
-                if (value === 0) return '正常';
-                if (value === 1) return '补损';
-                if (value === 2) return  '赠送';
             }
         },
         {
@@ -97,13 +116,13 @@ Ext.define('invoicing.view.DepotIn', {
         {
             xtype: 'combo',
             flex: 1,
-            name: 'proxy',
+            name: 'depot_id',
             typeAhead: true,
             triggerAction: 'all',
             displayField: 'name',
             valueField: 'id',
-            store: Ext.create('invoicing.store.Proxies'),
-            fieldLabel: '送货人'
+            store: Ext.create('invoicing.store.Depots'),
+            fieldLabel: '分仓'
         }
     ],
     initComponent: function () {
@@ -164,7 +183,7 @@ Ext.define('invoicing.view.DepotIn', {
 
     onAddClick: function () {
         var me = this;
-        var win = Ext.create('invoicing.view.Window', {title: '分仓出库', items: [
+        var win = Ext.create('invoicing.view.Window', {title: '分仓入库', items: [
             {xtype: 'depotinpanel'}
         ]
         });
@@ -217,7 +236,7 @@ Ext.define('invoicing.view.DepotIn', {
         });
     },
     onQuery: function () {
-        var proxy = this.down('toolbar').down('combo[name=proxy]').value;
+        var depot_id = this.down('toolbar').down('combo[name=depot_id]').value;
         var from_date = this.down('toolbar').down('datefield[name=from_date]').value;
         var to_date = this.down('toolbar').down('datefield[name=to_date]').value;
         if (to_date) {
@@ -225,7 +244,7 @@ Ext.define('invoicing.view.DepotIn', {
             to_date.setMinutes(59);
         }
         var proxy = this.getStore().getProxy();
-        proxy.setExtraParam('proxy', proxy);
+        proxy.setExtraParam('depot_id', depot_id);
         proxy.setExtraParam('from_date', from_date);
         proxy.setExtraParam('to_date', to_date);
         this.getStore().load();

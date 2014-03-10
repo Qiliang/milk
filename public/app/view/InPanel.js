@@ -19,13 +19,13 @@ Ext.define('invoicing.view.InPanel', {
             valueField: 'id',
             forceSelection: true,
             allowBlank: false,
-            store: Ext.create('invoicing.store.Goods'),
-            listeners: {
-                select: function (combo, records, eOpts) {
-                    var priceField = combo.nextSibling('#price');
-                    priceField.setValue(records[0].get('price'));
-                }
-            }
+            store: Ext.create('invoicing.store.Goods')
+//            listeners: {
+//                select: function (combo, records, eOpts) {
+//                    var priceField = combo.nextSibling('#price');
+//                    priceField.setValue(records[0].get('price'));
+//                }
+//            }
         },
 
         {
@@ -38,15 +38,15 @@ Ext.define('invoicing.view.InPanel', {
             xtype: 'numberfield'
 
         },
-        {
-            id: 'price',
-            fieldLabel: '单价',
-            name: 'price',
-            allowBlank: false,
-            readOnly: true,
-            xtype: 'numberfield'
-
-        },
+//        {
+//            id: 'price',
+//            fieldLabel: '单价',
+//            name: 'price',
+//            allowBlank: false,
+//            readOnly: true,
+//            xtype: 'numberfield'
+//
+//        },
         {
             fieldLabel: '效期',
             name: 'expiry',

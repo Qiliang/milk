@@ -65,7 +65,7 @@ app.delete('/shops/:id', shops.delete);
 app.get('/depots', depots.all);
 app.post('/depots', depots.add);
 app.put('/depots', depots.update);
-app.delete('/depots/:id', depots.delete);
+app.delete('/depots', depots.delete);
 
 app.get('/proxies', proxies.all);
 app.post('/proxies/:id', proxies.add);
