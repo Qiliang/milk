@@ -185,6 +185,11 @@ Ext.define('invoicing.view.Out', {
             scope: this,
             handler: this.onExport
         });
+        this.tbar.push({
+            text: '打印出库单',
+            scope: this,
+            handler: this.onPrint
+        });
 
 
         this.callParent();
@@ -271,6 +276,10 @@ Ext.define('invoicing.view.Out', {
         proxy.setExtraParam('to_date', to_date);
         this.getStore().load();
 
+    },
+
+    onPrint: function () {
+        window.showModalDialog('print.html');
     }
 
 

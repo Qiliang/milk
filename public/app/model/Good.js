@@ -7,6 +7,8 @@ Ext.define('invoicing.model.Good', {
         'unit',
         'category',
         'price',
+        {name: 'count', persist: false},
+        {name: 'comment', persist: false},
         {name: 'modifier', type: 'string'},
         {name: 'createAt', type: 'date'},
         {name: 'text', type: 'string', persist: false, convert: function (value, record) {
