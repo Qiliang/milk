@@ -12,8 +12,9 @@ node.exe
 pids
 logs
 results
-
+db.db3
 
 npm-debug.log
 node_modules
 .idea
+db.db3
