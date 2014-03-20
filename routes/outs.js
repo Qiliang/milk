@@ -4,7 +4,7 @@ var Q = require('Q');
 
 exports.all = function (req, res) {
     var shop = req.query.shop,
-        category = req.query.category,
+        proxy = req.query.proxy,
         from_date = req.query.from_date ? db.toDateString(req.query.from_date) : '1983-11-30',
         to_date = req.query.to_date ? db.toDateString(req.query.to_date) : '2033-11-30';
     var start = parseInt(req.query.start),
@@ -14,8 +14,8 @@ exports.all = function (req, res) {
     var order = ' order by ' + sort.property + ' ' + sort.direction;
     var pager = ' limit ' + start + ',' + limit;
     var where = ' where create_at>="' + from_date + '" and create_at<="' + to_date + '" ';
-    if (category) {
-        where += ' and category="' + category + '"';
+    if (proxy) {
+        where += ' and proxy="' + proxy + '"';
     }
     if (shop) {
         where += ' and shop_name="' + shop + '"';

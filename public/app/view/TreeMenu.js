@@ -30,6 +30,7 @@ Ext.define('invoicing.view.TreeMenu', {
                     {id: 'depot', text: "分仓信息", leaf: true },
                     {id: 'depotin', text: "分仓入库", leaf: true },
                     {id: 'depotout', text: "分仓出库", leaf: true },
+                    {id: 'depotstock', text: "分仓库存", leaf: true },
                     {id: 'depotreport', text: "分仓报表", leaf: true }
                 ]},
 

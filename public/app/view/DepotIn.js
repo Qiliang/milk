@@ -133,16 +133,12 @@ Ext.define('invoicing.view.DepotIn', {
                 clicksToEdit: 1
             });
             this.plugins = [this.cellEditing];
-            this.tbar.splice(0, 0, {
-                text: '分仓入库',
-                scope: this,
-                handler: this.onAddClick
-            });
-//            this.tbar.push({
-//                text: '删除',
+//            this.tbar.splice(0, 0, {
+//                text: '分仓入库',
 //                scope: this,
-//                handler: this.onDelete
+//                handler: this.onAddClick
 //            });
+//
 
             this.columns.push({
                 xtype: 'actioncolumn',

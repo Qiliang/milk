@@ -95,6 +95,7 @@ Ext.define('invoicing.view.DepotOut', {
                 if (value === 0) return '正常';
                 if (value === 1) return '补损';
                 if (value === 2) return  '赠送';
+                if (value === 3) return  '报损';
             }
         },
         {

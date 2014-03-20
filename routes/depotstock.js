@@ -5,9 +5,9 @@ var Q = require('Q');
 exports.query = function (req, res) {
     var from_date = db.toDateString(req.query.from_date),
         to_date = db.toDateString(req.query.to_date),
-        category = req.query.category;
+        depot_id = req.query.depot_id;
 
-    Q.all([d_value(from_date, category), d_value(to_date, category, true), total_in(from_date, to_date, category), total_out(from_date, to_date, category)]).spread(function (from, to, in_stat, out_stat) {
+    Q.all([d_value(from_date, depot_id), d_value(to_date, depot_id, true), total_in(from_date, to_date, depot_id), total_out(from_date, to_date, depot_id)]).spread(function (from, to, in_stat, out_stat) {
         var result = [];
         _(to).each(function (item) {
             var from_item = _(from).find(function (p) {
@@ -35,17 +35,17 @@ function get_good_count(good_id, stat) {
     return item ? item : {count: 0};
 }
 
-function where_category(category) {
-    if (category)
-        return 'and category="' + category + '"'
+function where_depot_id(depot_id) {
+    if (depot_id)
+        return 'and depot_id="' + depot_id + '"'
     return '';
 
 }
 
-function total_in(from_date, to_date, category) {
+function total_in(from_date, to_date, depot_id) {
     var deferred = Q.defer();
     var where = ' and 1=1'
-    db.all('select good_id, sum(count) count from ins_view where create_at>=$from_date and create_at<=$to_date ' + where_category(category) + ' group by good_id', {$from_date: from_date, $to_date: to_date}).done(function (rows) {
+    db.all('select good_id, sum(count) count from depotins_view where create_at>=$from_date and create_at<=$to_date ' + where_depot_id(depot_id) + ' group by good_id', {$from_date: from_date, $to_date: to_date}).done(function (rows) {
         deferred.resolve(rows);
     }, function (err) {
         deferred.reject(err);
@@ -54,9 +54,9 @@ function total_in(from_date, to_date, category) {
     return deferred.promise;
 }
 
-function total_out(from_date, to_date, category) {
+function total_out(from_date, to_date, depot_id) {
     var deferred = Q.defer();
-    db.all('select good_id, sum(count) count from outs_view where create_at>=$from_date and create_at<=$to_date ' + where_category(category) + ' group by good_id', {$from_date: from_date, $to_date: to_date}).done(function (rows) {
+    db.all('select good_id, sum(count) count from depotouts_view where create_at>=$from_date and create_at<=$to_date ' + where_depot_id(depot_id) + ' group by good_id', {$from_date: from_date, $to_date: to_date}).done(function (rows) {
         deferred.resolve(rows);
     }, function (err) {
         deferred.reject(err);
@@ -70,15 +70,15 @@ function d_value(to_date, category, included) {
     var op = '<';
     if (included)op = '<=';
     Q.all([db.all('select * from goods'),
-            db.all('select good_id,sum(count) count from ins  where create_at' + op + '$to_date  group by good_id', {$to_date: to_date}),
-            db.all('select good_id,sum(count) count from outs_view where create_at' + op + '$to_date  group by good_id', {$to_date: to_date})]
+            db.all('select good_id,sum(count) count from depotins_view  where create_at' + op + '$to_date  ' + where_depot_id(category) + '  group by good_id', {$to_date: to_date}),
+            db.all('select good_id,sum(count) count from depotouts_view where create_at' + op + '$to_date  ' + where_depot_id(category) + '  group by good_id', {$to_date: to_date})]
         ).spread(function (goods, ins, outs) {
             var result = [];
             _(goods).each(function (good) {
                 var out_item = get_good_count(good.id, outs);
                 var in_item = get_good_count(good.id, ins);
                 var d_value = in_item.count - out_item.count;
-                result.push(_(good).extend({d_value: d_value, total_price:  d_value * good.price}));
+                result.push(_(good).extend({d_value: d_value, total_price: d_value * good.price}));
             });
             deferred.resolve(result);
         }).catch(function (err) {

@@ -72,10 +72,10 @@ Ext.define('invoicing.view.DepotReport', {
         },
         {
             fieldLabel: '分仓名称',
-            name: 'proxy_name',
+            name: 'depot_id',
             xtype: 'combo',
             displayField: 'name',
-            valueField: 'proxy_name',
+            valueField: 'id',
             forceSelection: true,
             store: Ext.create('invoicing.store.Depots')
         }

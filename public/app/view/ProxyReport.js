@@ -7,7 +7,8 @@ Ext.define('invoicing.view.ProxyReport', {
         enableTextSelection: true
     },
     features: [
-        {ftype: 'grouping'},
+      //  {ftype: 'grouping'},
+        { ftype: 'groupingsummary'},
         {ftype: 'summary'}
     ],
 

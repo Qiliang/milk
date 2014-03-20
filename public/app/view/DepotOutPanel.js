@@ -82,7 +82,8 @@ Ext.define('invoicing.view.DepotOutPanel', {
             store: [
                 [0, '正常'],
                 [1, '补损'],
-                [2, '赠送']
+                [2, '赠送'],
+                [3, '报损']
             ]
         },
         {

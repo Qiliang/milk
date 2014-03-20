@@ -89,6 +89,7 @@ Ext.define('invoicing.view.Out', {
                 if (value === 0) return '正常';
                 if (value === 1) return '补损';
                 if (value === 2) return  '赠送';
+                if (value === 3) return  '报损';
             }
         },
         {
@@ -144,10 +145,16 @@ Ext.define('invoicing.view.Out', {
             });
             this.plugins = [this.cellEditing];
             this.tbar.splice(0, 0, {
+                text: '总仓调拨',
+                scope: this,
+                handler: this.onToDepot
+            });
+            this.tbar.splice(0, 0, {
                 text: '总仓出库',
                 scope: this,
                 handler: this.onToProxy
             });
+
 
             this.columns.push({
                 xtype: 'actioncolumn',
@@ -207,8 +214,8 @@ Ext.define('invoicing.view.Out', {
 
     onToDepot: function () {
         var me = this;
-        var win = Ext.create('invoicing.view.Window', {title: '总仓到分仓', items: [
-            {xtype: 'outtodepot'}
+        var win = Ext.create('invoicing.view.Window', {title: '总仓调拨', items: [
+            {xtype: 'relocate'}
         ]
         });
         win.show();
@@ -261,7 +268,7 @@ Ext.define('invoicing.view.Out', {
         });
     },
     onQuery: function () {
-        var proxy = this.down('toolbar').down('combo[name=proxy]').value;
+        var proxy_id = this.down('toolbar').down('combo[name=proxy]').value;
         var from_date = this.down('toolbar').down('datefield[name=from_date]').value;
         var to_date = this.down('toolbar').down('datefield[name=to_date]').value;
         var shop = this.down('toolbar').down('combo[name=shop]').value;
@@ -270,7 +277,7 @@ Ext.define('invoicing.view.Out', {
             to_date.setMinutes(59);
         }
         var proxy = this.getStore().getProxy();
-        proxy.setExtraParam('proxy', proxy);
+        proxy.setExtraParam('proxy', proxy_id);
         proxy.setExtraParam('shop', shop);
         proxy.setExtraParam('from_date', from_date);
         proxy.setExtraParam('to_date', to_date);

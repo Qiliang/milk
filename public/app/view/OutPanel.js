@@ -23,6 +23,7 @@ Ext.define('invoicing.view.OutPanel', {
         {
             fieldLabel: '学校名称',
             name: 'shop_name',
+            itemId: 'shop_name',
             xtype: 'combo',
             displayField: 'name',
             valueField: 'name',
@@ -32,6 +33,7 @@ Ext.define('invoicing.view.OutPanel', {
         {
             fieldLabel: '送货人',
             name: 'proxy',
+            itemId: 'proxy',
             xtype: 'combo',
             displayField: 'name',
             valueField: 'id',
@@ -55,8 +57,27 @@ Ext.define('invoicing.view.OutPanel', {
             store: [
                 [0, '正常'],
                 [1, '补损'],
-                [2, '赠送']
-            ]
+                [2, '赠送'],
+                [3, '报损']
+            ],
+            listeners: {
+                select: function (combo, records, eOpts) {
+                    var shop_name = combo.previousSibling('#shop_name');
+                    var proxy = combo.previousSibling('#proxy');
+                    if (combo.getValue() == 3) {
+                        shop_name.allowBlank = true;
+                        shop_name.disable();
+                        proxy.allowBlank = true;
+                        proxy.disable();
+                    } else {
+                        shop_name.allowBlank = false;
+                        shop_name.enable();
+                        proxy.allowBlank = false;
+                        proxy.enable();
+                    }
+
+                }
+            }
         },
         {
             xtype: 'datefield',
@@ -78,6 +99,9 @@ Ext.define('invoicing.view.OutPanel', {
                 var form = this.up('outpanel').getForm();
                 if (!form.isValid()) return;
                 var values = form.getValues();
+                if (!values.proxy) {
+                    values.proxy = 29;
+                }
                 if (values.supplement > 0) {
                     Ext.create('invoicing.store.Out').add(values);
                     me.up('window').close();

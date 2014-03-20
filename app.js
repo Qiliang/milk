@@ -16,6 +16,7 @@ var outs = require('./routes/outs');
 var depotouts = require('./routes/depotouts');
 var depotins = require('./routes/depotins');
 var stock = require('./routes/stock');
+var depotstock = require('./routes/depotstock');
 var surplus = require('./routes/surplus');
 var depotreport = require('./routes/depotreport');
 var proxyreport = require('./routes/proxyreport');
@@ -100,6 +101,7 @@ app.put('/depotins/:id', depotins.update);
 app.delete('/depotins/:id', depotins.delete);
 
 app.get('/stock', stock.query);
+app.get('/depotstock', depotstock.query);
 app.get('/surplus', surplus.query);
 app.get('/proxyreport', proxyreport.query);
 app.get('/depotreport', depotreport.query);
