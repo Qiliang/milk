@@ -96,7 +96,7 @@ Ext.define('invoicing.view.DepotReport', {
     onQuery: function () {
         var from_date = this.down('toolbar').down('datefield[name=from_date]').value;
         var to_date = this.down('toolbar').down('datefield[name=to_date]').value;
-        var proxy_name = this.down('toolbar').down('combo[name=proxy_name]').value;
+       // var proxy_name = this.down('toolbar').down('combo[name=proxy_name]').value;
         if (!from_date || !to_date) {
             Ext.Msg.show({
                 title: '提示',
@@ -113,7 +113,7 @@ Ext.define('invoicing.view.DepotReport', {
         var proxy = this.getStore().getProxy();
         proxy.setExtraParam('from_date', from_date);
         proxy.setExtraParam('to_date', to_date);
-        proxy.setExtraParam('proxy_name', proxy_name);
+       // proxy.setExtraParam('proxy_name', proxy_name);
         this.getStore().load();
 
     }

@@ -84,7 +84,29 @@ Ext.define('invoicing.view.DepotOutPanel', {
                 [1, '补损'],
                 [2, '赠送'],
                 [3, '报损']
-            ]
+            ],
+            listeners: {
+            select: function (combo, records, eOpts) {
+                var shop_name = combo.previousSibling('#shop_name');
+                var proxy = combo.previousSibling('#proxy_id');
+                var proxy_name = combo.previousSibling('#proxy_name');
+                if (combo.getValue() == 3) {
+                    shop_name.allowBlank = true;
+                    shop_name.disable();
+                    proxy_name.allowBlank = true;
+                    proxy.disable();
+                    proxy_name.disable()
+                } else {
+                    shop_name.allowBlank = false;
+                    shop_name.enable();
+                    proxy_name.allowBlank = false;
+                    proxy.enable();
+                    proxy_name.enable();
+
+                }
+
+            }
+        }
         },
         {
             xtype: 'datefield',
@@ -106,8 +128,11 @@ Ext.define('invoicing.view.DepotOutPanel', {
                 var form = this.up('depotoutpanel').getForm();
                 if (!form.isValid()) return;
                 var values = form.getValues();
+                if (!values.proxy) {
+                    values.proxy = 29;
+                }
                 if (values.supplement > 0) {
-                    Ext.create('invoicing.store.Out').add(values);
+                    Ext.create('invoicing.store.DepotOut').add(values);
                     me.up('window').close();
                 } else {
                     Ext.Ajax.request({
