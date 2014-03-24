@@ -135,29 +135,8 @@ Ext.define('invoicing.view.DepotOutPanel', {
                     Ext.create('invoicing.store.DepotOut').add(values);
                     me.up('window').close();
                 } else {
-                    Ext.Ajax.request({
-                        method: 'GET',
-                        url: 'proxies/' + values.proxy + '/credit',
-                        params: {good_id: values.good_id, count: values.count},
-                        success: function (response, opts) {
-                            var obj = Ext.decode(response.responseText);
-                            var canUsed = obj.credit - obj.remainder;
-                            if (canUsed >= values.count) {
-                                Ext.create('invoicing.store.DepotOut').add(values);
-                                me.up('window').close();
-                            } else {
-                                Ext.Msg.show({
-                                    title: '提示',
-                                    msg: '货品数量：' + values.count + '<br />可用信用额度(件)：' + canUsed,
-                                    buttons: Ext.Msg.OK,
-                                    icon: Ext.Msg.WARNING
-                                });
-                            }
-                        },
-                        failure: function (response, opts) {
-                            console.log('server-side failure with status code ' + response.status);
-                        }
-                    });
+                    Ext.create('invoicing.store.DepotOut').add(values);
+                    me.up('window').close();
                 }
             }
         }
