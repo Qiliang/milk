@@ -139,7 +139,7 @@ Ext.define('invoicing.view.Out', {
     initComponent: function () {
         this.columns = Ext.clone(this._columns);
         this.tbar = Ext.clone(this._tbar);
-        if (window.capability('0001') || window.capability('0004')) {
+        if (window.capability('0001') || window.capability('0003') || window.capability('0004')) {
             this.cellEditing = new Ext.grid.plugin.CellEditing({
                 clicksToEdit: 1
             });
