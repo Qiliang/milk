@@ -84,7 +84,7 @@ Ext.define('invoicing.view.ProxyIn', {
             handler: this.onQuery
         });
 
-        if (window.capability('0001') || window.capability('0004')) {
+        if (window.capability('0001') || window.capability('0005')) {
 
             this.tbar.splice(0, 0, {
                 text: '入账',
